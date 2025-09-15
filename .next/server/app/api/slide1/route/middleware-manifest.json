@@ -1,0 +1,54 @@
+{
+  "sorted_middleware": [
+    "/api/slide1/route"
+  ],
+  "middleware": {},
+  "instrumentation": null,
+  "functions": {
+    "/api/slide1/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "server/server-reference-manifest.js",
+        "server/app/api/slide1/route_client-reference-manifest.js",
+        "server/edge/chunks/_next-internal_server_app_api_slide1_route_actions_8621e73a.js",
+        "server/edge/chunks/turbopack-_next-internal_server_app_api_slide1_route_actions_793eac0d.js",
+        "server/edge/chunks/[root-of-the-server]__078c45bf._.js",
+        "server/edge/chunks/[root-of-the-server]__55d9785c._.js",
+        "server/edge/chunks/node_modules_next_dist_compiled_@vercel_og_16be1ace._.js",
+        "server/edge/chunks/turbopack-edge-wrapper_1d84c0c3.js"
+      ],
+      "name": "app/api/slide1/route",
+      "page": "/api/slide1/route",
+      "matchers": [
+        {
+          "regexp": "^/api/slide1(?:/)?$",
+          "originalSource": "/api/slide1"
+        }
+      ],
+      "wasm": [
+        {
+          "name": "wasm_fdb56e4cc5936d29",
+          "filePath": "server/edge/chunks/node_modules_next_dist_compiled_@vercel_og_resvg_23ace1ce.wasm"
+        },
+        {
+          "name": "wasm_1ccdc983b1fd9f87",
+          "filePath": "server/edge/chunks/node_modules_next_dist_compiled_@vercel_og_yoga_23ace1ce.wasm"
+        }
+      ],
+      "assets": [
+        {
+          "name": "server/edge/assets/noto-sans-v27-latin-regular.bdfa676c.ttf",
+          "filePath": "server/edge/assets/noto-sans-v27-latin-regular.bdfa676c.ttf"
+        }
+      ],
+      "env": {
+        "__NEXT_BUILD_ID": "XQBG1EDAHh1HEbmv8YqFT",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "7pP5L/bq+jSFAtf0xlfc8x7byo4uWtjkx/9umxcKV8c=",
+        "__NEXT_PREVIEW_MODE_ID": "0398e7545f1b89368d308fc27c68c3e5",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "65a1f6a91f271e5bb7cdc1eb50de8c0801fa499e8128bd2e15554f0ff4e5de7e",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "c004498129d41c64c52245994c4fb8d69aeb05faa53e25448c98d76db54ade68"
+      }
+    }
+  }
+}

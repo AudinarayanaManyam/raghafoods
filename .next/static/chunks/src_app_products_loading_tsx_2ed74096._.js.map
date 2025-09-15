@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/raagafoods%20%281%29/raagafoods/src/app/products/loading.tsx"],"sourcesContent":["'use client';\r\n\r\nexport default function Loading() {\r\n  return (\r\n    <div className=\"min-h-screen py-8 sm:py-12\">\r\n      <div className=\"max-w-7xl mx-auto px-4\">\r\n        <div className=\"flex justify-center items-center h-64\">\r\n          <div className=\"animate-pulse text-gray-600\">Loading products...</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;AAAA;;AAEe,SAAS;IACtB,qBACE,6LAAC;QAAI,WAAU;kBACb,cAAA,6LAAC;YAAI,WAAU;sBACb,cAAA,6LAAC;gBAAI,WAAU;0BACb,cAAA,6LAAC;oBAAI,WAAU;8BAA8B;;;;;;;;;;;;;;;;;;;;;AAKvD;KAVwB","debugId":null}}]
+}

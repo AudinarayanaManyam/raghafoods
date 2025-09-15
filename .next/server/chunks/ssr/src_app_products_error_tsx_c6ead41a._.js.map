@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/raagafoods%20%281%29/raagafoods/src/app/products/error.tsx"],"sourcesContent":["'use client';\r\n \r\nexport default function Error({\r\n  error: _error,\r\n  reset,\r\n}: {\r\n  error: Error;\r\n  reset: () => void;\r\n}) {\r\n  return (\r\n    <div className=\"min-h-screen py-8 sm:py-12\">\r\n      <div className=\"max-w-7xl mx-auto px-4\">\r\n        <div className=\"flex flex-col items-center justify-center h-64 space-y-4\">\r\n          <h2 className=\"text-xl font-semibold text-gray-800\">Something went wrong!</h2>\r\n          <button\r\n            onClick={() => reset()}\r\n            className=\"px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors\"\r\n          >\r\n            Try again\r\n          </button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;AAAA;;AAEe,SAAS,MAAM,EAC5B,OAAO,MAAM,EACb,KAAK,EAIN;IACC,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;YAAI,WAAU;sBACb,cAAA,8OAAC;gBAAI,WAAU;;kCACb,8OAAC;wBAAG,WAAU;kCAAsC;;;;;;kCACpD,8OAAC;wBACC,SAAS,IAAM;wBACf,WAAU;kCACX;;;;;;;;;;;;;;;;;;;;;;AAOX","debugId":null}}]
+}
