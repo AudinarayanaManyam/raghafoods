@@ -14,10 +14,12 @@ export default function Logo() {
         />
       </div>
       <div className="min-w-0 flex items-center">
-        <img 
+        <Image 
           src="/logoname.jpg"
           alt="Raaga Foods Name Logo"
-          style={{ height: '20px', width: 'auto', maxWidth: '100%' }}
+          width={120}
+          height={30}
+          className="h-[30px] w-auto max-w-full"
         />
       </div>
     </div>

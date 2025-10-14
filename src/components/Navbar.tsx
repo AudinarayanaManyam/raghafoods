@@ -63,9 +63,9 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white shadow-md fixed w-full z-10 navbar-responsive">
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 zoom-container">
-        <div className="flex items-center justify-between h-14 sm:h-16 md:h-20 navbar-responsive">
+    <nav className="bg-[#f5f0dc] shadow-md fixed w-full z-10 navbar-responsive ">
+      <div className="max-w-full mx-auto px-2 sm:px-4 lg:px-8 zoom-container ">
+        <div className="flex items-center justify-center h-14 sm:h-16 md:h-20 navbar-responsive ">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center min-w-0 max-w-[40%] sm:max-w-none">
             <Link 
@@ -107,7 +107,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop & Tablet Navigation */}
-          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6 flex-shrink-0">
+          <div className=" hidden lg:flex items-center space-x-4 xl:space-x-6 flex-shrink-0 max-h-full overflow-y-auto">
             <Link 
               href="/"
               className="text-gray-700 hover:text-orange-600 px-2 xl:px-3 py-2 rounded-md text-sm xl:text-base font-semibold whitespace-nowrap responsive-text"
@@ -191,14 +191,7 @@ export default function Navbar() {
             >
               Products
             </Link>
-            <Link 
-              href="/blogs"
-              className="text-gray-700 hover:text-orange-600 px-2 xl:px-3 py-2 rounded-md text-sm xl:text-base font-medium whitespace-nowrap responsive-text flex items-center"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <span className="mr-1">📰</span>
-              Blogs
-            </Link>
+            
             <Link 
               href="#about" 
               className="text-gray-700 hover:text-orange-600 px-2 xl:px-3 py-2 rounded-md text-sm xl:text-base font-medium whitespace-nowrap responsive-text"
@@ -278,7 +271,7 @@ export default function Navbar() {
           </div>
 
           {/* Tablet Navigation (between mobile and desktop) */}
-          <div className="hidden md:flex lg:hidden items-center space-x-1 flex-shrink-0">
+          <div className="  hidden md:flex lg:hidden items-center space-x-1 flex-shrink-0  ">
             <Link 
               href="/"
               className="text-gray-700 hover:text-orange-600 px-2 py-2 rounded-md text-xs font-semibold responsive-text"
@@ -351,14 +344,7 @@ export default function Navbar() {
             >
               Products
             </Link>
-            <Link 
-              href="/blogs"
-              className="text-gray-700 hover:text-orange-600 px-2 py-2 rounded-md text-xs font-medium responsive-text flex items-center"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <span className="mr-1 text-xs">📰</span>
-              Blogs
-            </Link>
+            
             <Link 
               href="#about" 
               className="text-gray-700 hover:text-orange-600 px-2 py-2 rounded-md text-xs font-medium responsive-text"
@@ -430,7 +416,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center md:hidden sm:ml-2">
+          <div className="flex items-center md:hidden sm:ml-2 pl-50">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-orange-600 focus:outline-none"
@@ -530,14 +516,7 @@ export default function Navbar() {
               >
                 Products
               </Link>
-              <Link 
-                href="/blogs"
-                className="text-gray-700 hover:text-orange-600 block px-3 py-2.5 rounded-lg text-base font-medium hover:bg-orange-50 transition-colors duration-200 flex items-center"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <span className="mr-2">📰</span>
-                Blogs
-              </Link>
+              
               <Link 
                 href="#about" 
                 className="text-gray-700 hover:text-orange-600 block px-3 py-2.5 rounded-lg text-base font-medium hover:bg-orange-50 transition-colors duration-200"

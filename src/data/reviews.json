@@ -1,0 +1,22 @@
+[
+  {
+    "productId": "5",
+    "userId": "user_1758969164536",
+    "userName": " dcnhbn",
+    "rating": 5,
+    "title": "audi",
+    "content": "cmk vnjncmx",
+    "updatedAt": "2025-09-27T10:32:44.536Z",
+    "verifiedPurchase": false
+  },
+  {
+    "productId": "7",
+    "userId": "user_1758969312431",
+    "userName": "SDFG",
+    "rating": 4,
+    "title": "zxcvbg",
+    "content": "ASDFG",
+    "updatedAt": "2025-09-27T10:35:12.431Z",
+    "verifiedPurchase": false
+  }
+]

@@ -1,25 +1,25 @@
 export const categories = [
   { 
     title: 'Pickles',  
-    img: '/categories/pickle.jpg',
+    img: '/categories/mango-pickle-6.jpg',
    
   },
   { 
     title: 'Batters', 
-    img: '/categories/batters.jpg',
+    img: '/categories/Batters.jpg',
     
   },
   { 
     title: 'Powders',  
-    img: '/categories/powders.jpg',
+    img: '/categories/Sambar-Powder-Recipe.jpg',
     
   },
   {
     title:'Veg',
-    img:'/categories/veg.jpg'
+    img:'/categories/mango-pickle-6.jpg'
   },
    {
     title:'Non-Veg',
-    img:'/categories/non-veg.jpg'
+    img:'/categories/chicken-pickle.jpg'
   }
 ];

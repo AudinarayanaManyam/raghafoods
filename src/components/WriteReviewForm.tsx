@@ -1,4 +1,3 @@
-'use client';
 
 import { useState } from 'react';
 import { Review } from '@/data/reviews';
@@ -16,23 +15,17 @@ export default function WriteReviewForm({ productId, productName, onSubmit, onCa
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [userName, setUserName] = useState('');
+  // const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);
   const [location, setLocation] = useState('');
-  const [images, setImages] = useState<File[]>([]);
-  const [verifiedPurchase, setVerifiedPurchase] = useState(false);
+  // Removed image upload and verified purchase fields
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [lastReview, setLastReview] = useState<Partial<Review> | null>(null);
 
   const handleStarClick = (selectedRating: number) => {
     setRating(selectedRating);
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    setImages(prev => [...prev, ...files].slice(0, 5)); // Max 5 images
-  };
-
-  const removeImage = (index: number) => {
-    setImages(prev => prev.filter((_, i) => i !== index));
-  };
+  // Removed image upload handlers
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,36 +35,31 @@ export default function WriteReviewForm({ productId, productName, onSubmit, onCa
     }
 
     setIsSubmitting(true);
-
-    // Simulate image processing (in real app, you'd upload to a server)
-    const imageUrls = images.map((file, index) => 
-      URL.createObjectURL(file) // This is just for demo - in production, upload to server
-    );
-
+  // Removed setUploadError reference
+    // Removed image upload logic
     const newReview = {
       productId,
       userId: `user_${Date.now()}`,
       userName,
+      userAvatar: undefined,
       rating,
       title,
       content,
-      images: imageUrls.length > 0 ? imageUrls : undefined,
-      verifiedPurchase,
       location: location || undefined,
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
+      verifiedPurchase: false
     };
 
     try {
       onSubmit(newReview);
+      setLastReview(newReview);
       // Reset form
       setRating(0);
       setTitle('');
       setContent('');
       setUserName('');
       setLocation('');
-      setImages([]);
-      setVerifiedPurchase(false);
-    } catch (error) {
+    } catch {
       alert('Error submitting review. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -169,110 +157,19 @@ export default function WriteReviewForm({ productId, productName, onSubmit, onCa
         </div>
 
         {/* Personal Information */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="userName" className="block text-sm font-medium text-gray-700 mb-2">
-              Your Name <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="userName"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              placeholder="Enter your name"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">
-              Location (Optional)
-            </label>
-            <input
-              type="text"
-              id="location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="e.g., Mumbai, India"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-            />
-          </div>
-        </div>
-
-        {/* Add Photos */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Add Photos (Optional)
+          <label htmlFor="userName" className="block text-sm font-medium text-gray-700 mb-2">
+            Your Name <span className="text-red-500">*</span>
           </label>
-          <div className="space-y-2">
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleImageUpload}
-              className="hidden"
-              id="image-upload"
-            />
-            <label
-              htmlFor="image-upload"
-              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-              Add Photos
-            </label>
-            <p className="text-xs text-gray-500">
-              Shoppers find images more helpful than text alone. (Max 5 images)
-            </p>
-          </div>
-
-          {/* Image Previews */}
-          {images.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3">
-              {images.map((file, index) => (
-                <div key={index} className="relative">
-                  <img
-                    src={URL.createObjectURL(file)}
-                    alt={`Upload preview ${index + 1}`}
-                    className="w-20 h-20 object-cover rounded border"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeImage(index)}
-                    className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600"
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Verified Purchase */}
-        <div className="flex items-center">
           <input
-            type="checkbox"
-            id="verifiedPurchase"
-            checked={verifiedPurchase}
-            onChange={(e) => setVerifiedPurchase(e.target.checked)}
-            className="rounded border-gray-300 text-orange-600 focus:ring-orange-500"
+            type="text"
+            id="userName"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            placeholder="Enter your name"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+            required
           />
-          <label htmlFor="verifiedPurchase" className="ml-2 text-sm text-gray-700">
-            I purchased this product (Verified Purchase badge will be shown)
-          </label>
-        </div>
-
-        {/* Guidelines */}
-        <div className="bg-gray-50 rounded-lg p-4">
-          <h4 className="font-semibold text-sm text-gray-900 mb-2">Review Guidelines</h4>
-          <ul className="text-xs text-gray-600 space-y-1">
-            <li>• Focus on the product and your experience with it</li>
-            <li>• Be honest and authentic in your review</li>
-            <li>• Avoid inappropriate content and personal information</li>
-            <li>• Photos should be relevant to the product</li>
-          </ul>
         </div>
 
         {/* Submit Buttons */}
@@ -294,6 +191,15 @@ export default function WriteReviewForm({ productId, productName, onSubmit, onCa
           </button>
         </div>
       </form>
+
+      {lastReview && (
+        <div className="mt-8 p-4 bg-gray-50 border rounded">
+          <h4 className="font-semibold mb-2">Submitted Review (JSON Format):</h4>
+          <pre className="text-xs bg-white p-2 rounded overflow-x-auto border">
+            {JSON.stringify(lastReview, null, 2)}
+          </pre>
+        </div>
+      )}
     </div>
   );
 }

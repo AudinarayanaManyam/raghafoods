@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, } from 'react';
+
 import ProductCard from '@/components/ProductCard';
 import { useSearch } from '@/contexts/SearchContext';
 import { products } from '@/data/products';
+import { reviews as staticReviews, Review } from '@/data/reviews';
 
 interface SearchResult {
   category: string;
@@ -14,16 +16,51 @@ interface ProductsListProps {
   selectedCategory?: string;
 }
 
+
 export default function ProductsList({ selectedCategory }: ProductsListProps) {
   const { searchQuery } = useSearch();
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [displayCount, setDisplayCount] = useState(12); // Initially show 12 products
+  const [displayCount, setDisplayCount] = useState(8); // Initially show 12 products
   const [allProducts, setAllProducts] = useState<typeof products>([]);
+
+  // --- Local Review State ---
+  const [localReviews, setLocalReviews] = useState<Review[]>([]);
+
+  // Load local reviews from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const allKeys = Object.keys(localStorage).filter(k => k.startsWith('userReviews_'));
+        let loaded: Review[] = [];
+        allKeys.forEach(key => {
+          const arr = JSON.parse(localStorage.getItem(key) || '[]');
+          if (Array.isArray(arr)) loaded = loaded.concat(arr);
+        });
+        setLocalReviews(loaded);
+      } catch {}
+    }
+  }, []);
+
+  // Add review handler
+  const handleAddReview = (review: Review) => {
+    setLocalReviews(prev => {
+      const updated = [review, ...prev];
+      // Save to localStorage by product
+      if (typeof window !== 'undefined') {
+        try {
+          const key = `userReviews_${review.productId}`;
+          const existing = JSON.parse(localStorage.getItem(key) || '[]');
+          localStorage.setItem(key, JSON.stringify([review, ...existing]));
+        } catch {}
+      }
+      return updated;
+    });
+  };
 
   useEffect(() => {
     // Reset display count when category or search changes
-    setDisplayCount(12);
+    setDisplayCount(8);
   }, [searchQuery, selectedCategory]);
 
   useEffect(() => {
@@ -143,6 +180,14 @@ export default function ProductsList({ selectedCategory }: ProductsListProps) {
     );
   }
 
+  // Helper: get reviews for a product (static + local)
+  const getReviewsForProduct = (productId: string) => {
+    return [
+      ...staticReviews.filter(r => r.productId === productId),
+      ...localReviews.filter(r => r.productId === productId)
+    ];
+  };
+
   return (
     <div className="w-full">
       {(isSearching || selectedCategory) && (
@@ -164,10 +209,14 @@ export default function ProductsList({ selectedCategory }: ProductsListProps) {
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-4 sm:gap-6">
         {searchResults[0]?.items.map((product) => (
           <div key={product.id} className="w-full">
-            <ProductCard product={product} />
+            <ProductCard 
+              product={product} 
+              reviews={getReviewsForProduct(product.id)}
+              addReview={handleAddReview}
+            />
           </div>
         ))}
       </div>
@@ -196,13 +245,7 @@ export default function ProductsList({ selectedCategory }: ProductsListProps) {
       )}
 
       {/* Show total count when all products are loaded */}
-      {!hasMoreProducts && allProducts.length > 12 && (
-        <div className="flex justify-center mt-8">
-          <span className="text-sm text-gray-500">
-            All {allProducts.length} products loaded
-          </span>
-        </div>
-      )}
+      
     </div>
   );
 }

@@ -1,9 +1,12 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { reviews, getReviewSummary, sortReviews, filterReviewsByRating, Review } from '@/data/reviews';
-import { ShareMenu, shareUtils } from './ShareMenu';
+import Image from 'next/image';
+import { reviews, sortReviews, filterReviewsByRating, Review } from '@/data/reviews';
 import WriteReviewForm from './WriteReviewForm';
+// import { shareUtils } from './ShareMenu';
+// import { getReviewSummary } from '@/data/reviews';
+// import { ShareMenu } from './ShareMenu';
 
 interface ReviewsDisplayProps {
   productId: string;
@@ -14,7 +17,7 @@ interface ReviewsDisplayProps {
 export default function ReviewsDisplay({ productId, productName, className = '' }: ReviewsDisplayProps) {
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'highest' | 'lowest' | 'helpful'>('helpful');
   const [filterRating, setFilterRating] = useState<number | null>(null);
-  const [openShareMenus, setOpenShareMenus] = useState<{ [key: string]: boolean }>({});
+  // const [openShareMenus, setOpenShareMenus] = useState<{ [key: string]: boolean }>({});
   const [helpfulVotes, setHelpfulVotes] = useState<{ [key: string]: { helpful: number; total: number } }>({});
   const [showWriteReview, setShowWriteReview] = useState(false);
   const [userReviews, setUserReviews] = useState<Review[]>([]);
@@ -62,22 +65,37 @@ export default function ReviewsDisplay({ productId, productName, className = '' 
     };
   }, [productId, userReviews]);
 
-  const toggleShareMenu = (reviewId: string) => {
-    setOpenShareMenus(prev => ({
-      ...prev,
-      [reviewId]: !prev[reviewId]
-    }));
-  };
+  // Unused functions - commented out to fix warnings
+  // const toggleShareMenu = (reviewId: string) => {
+  //   setOpenShareMenus(prev => ({
+  //     ...prev,
+  //     [reviewId]: !prev[reviewId]
+  //   }));
+  // };
 
-  const handleShareReview = (review: Review, platform: string) => {
-    const reviewUrl = `${window.location.origin}/products/${productId}#review-${review.id}`;
-    const shareTitle = `Review: ${review.title}`;
-    const shareText = `"${review.content.substring(0, 100)}..." - ${review.userName} gave ${review.rating} stars to ${productName} on Raaga Foods`;
+  // const handleShareReview = (review: Review, platform: string) => {
+  //   const reviewUrl = `${window.location.origin}/products/${productId}#review-${review.id}`;
+  //   const shareTitle = `Review: ${review.title}`;
+  //   const shareText = `"${review.content.substring(0, 100)}..." - ${review.userName} gave ${review.rating} stars to ${productName} on Raaga Foods`;
 
-    shareUtils.handleShare(platform, shareTitle, shareText, reviewUrl, () => {
-      setOpenShareMenus(prev => ({ ...prev, [review.id]: false }));
-    });
-  };
+  //   shareUtils.handleShare(platform, shareTitle, shareText, reviewUrl, () => {
+  //     setOpenShareMenus(prev => ({ ...prev, [review.id]: false }));
+  //   });
+  // };
+
+  // Fixed unused function - commented out to remove warning
+  // const handleHelpfulClick = (reviewId: string, currentVotes: number, totalVotes: number) => {
+  //   setHelpfulVotes(prev => {
+  //     const current = prev[reviewId] || { helpful: 0, total: 0 };
+  //     return {
+  //       ...prev,
+  //       [reviewId]: {
+  //         helpful: current.helpful + 1,
+  //         total: current.total + 1
+  //       }
+  //     };
+  //   });
+  // };
 
   const handleHelpfulVote = (reviewId: string, isHelpful: boolean) => {
     setHelpfulVotes(prev => {
@@ -232,7 +250,7 @@ export default function ReviewsDisplay({ productId, productName, className = '' 
               <span className="text-sm font-medium text-gray-700">Sort by:</span>
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest' | 'helpful')}
                 className="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
                 <option value="helpful">Most Helpful</option>
@@ -277,7 +295,7 @@ export default function ReviewsDisplay({ productId, productName, className = '' 
                   const currentVotes = helpfulVotes[review.id] || { helpful: 0, total: 0 };
                   const totalHelpful = review.helpfulVotes + currentVotes.helpful;
                   const totalVotes = review.totalVotes + currentVotes.total;
-                  const isShareMenuOpen = openShareMenus[review.id];
+                  // const isShareMenuOpen = openShareMenus[review.id];
                   return (
                     <div key={review.id} id={`review-${review.id}`} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
                       {/* ...existing code for review card... */}
@@ -287,7 +305,7 @@ export default function ReviewsDisplay({ productId, productName, className = '' 
                           {/* Avatar */}
                           <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
                             {review.userAvatar ? (
-                              <img src={review.userAvatar} alt={review.userName} className="w-10 h-10 rounded-full" />
+                              <Image src={review.userAvatar || '/products/placeholder.jpg'} alt={review.userName} width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
                             ) : (
                               <span className="text-sm font-medium text-gray-600">
                                 {review.userName.charAt(0)}
@@ -345,10 +363,12 @@ export default function ReviewsDisplay({ productId, productName, className = '' 
                       {review.images && review.images.length > 0 && (
                         <div className="flex gap-2 mb-4">
                           {review.images.map((image, index) => (
-                            <img
+                            <Image
                               key={index}
                               src={image}
                               alt={`Review image ${index + 1}`}
+                              width={64}
+                              height={64}
                               className="w-16 h-16 object-cover rounded border cursor-pointer hover:opacity-80"
                             />
                           ))}

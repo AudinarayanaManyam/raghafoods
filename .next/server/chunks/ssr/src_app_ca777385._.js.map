@@ -2,5 +2,5 @@
   "version": 3,
   "sources": [],
   "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///D:/raagafoods%20%281%29/raagafoods/src/app/favicon.ico.mjs%20%28structured%20image%20object%29"],"sourcesContent":["import src from \"IMAGE\";\nexport default { src, width: 256, height: 256 }\n"],"names":[],"mappings":";;;;AAAA;;uCACe;IAAE,KAAA,yHAAG;IAAE,OAAO;IAAK,QAAQ;AAAI","debugId":null}}]
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///D:/raagafoods%20%281%29/raagafoods/src/app/favicon.ico.mjs%20%28structured%20image%20object%29"],"sourcesContent":["import src from \"IMAGE\";\nexport default { src, width: 1436, height: 1410 }\n"],"names":[],"mappings":";;;;AAAA;;uCACe;IAAE,KAAA,yHAAG;IAAE,OAAO;IAAM,QAAQ;AAAK","debugId":null}}]
 }

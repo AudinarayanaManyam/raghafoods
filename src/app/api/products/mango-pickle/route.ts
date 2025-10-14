@@ -1,5 +1,7 @@
 import sharp from 'sharp';
 
+export const dynamic = 'force-static';
+
 export async function GET() {
   try {
     // Create a gradient background

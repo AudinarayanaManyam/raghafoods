@@ -1,4 +1,5 @@
-export const runtime = 'edge';
+// Removed conflicting runtime and dynamic exports for static build
+export const dynamic = 'force-static';
 
 export async function GET() {
   const svg = `

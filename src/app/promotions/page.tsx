@@ -390,7 +390,7 @@ export default function PromotionsPage() {
         {/* Bottom CTA */}
         <div className="mt-16 text-center bg-orange-50 rounded-2xl p-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Don't Miss Out!
+            Don&apos;t Miss Out!
           </h2>
           <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
             Join thousands of satisfied customers and start your authentic South Indian food journey with Raaga Foods.

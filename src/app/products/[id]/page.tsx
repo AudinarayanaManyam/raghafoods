@@ -1,3 +1,136 @@
+// import Link from 'next/link';
+// import { products } from '@/data/products';
+// import ReviewsDisplay from '@/components/ReviewsDisplay';
+// import { getAverageRating, getReviewCount } from '@/data/reviews';
+// import ProductDetailClient from './ProductDetailClient';
+
+// // Generate static params for all products
+// export async function generateStaticParams() {
+//   return products.map((product) => ({
+//     id: product.id,
+//   }));
+// }
+
+// // Star Rating Component
+// const StarRating = ({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'md' | 'lg' }) => {
+//   const sizeClasses = {
+//     sm: 'w-4 h-4',
+//     md: 'w-5 h-5',
+//     lg: 'w-6 h-6'
+//   };
+
+//   return (
+//     <div className="flex items-center">
+//       {[1, 2, 3, 4, 5].map((star) => (
+//         <svg
+//           key={star}
+//           className={`${sizeClasses[size]} ${star <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
+//           fill="currentColor"
+//           viewBox="0 0 20 20"
+//         >
+//           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+//         </svg>
+//       ))}
+//     </div>
+//   );
+// };
+
+// interface Product {
+//   id: string;
+//   name: string;
+//   description: string;
+//   category: string;
+//   image: string;
+//   videoUrl?: string;
+//   additionalImages?: string[];
+//   additionalVideos?: string[];
+//   tags?: string[];
+//   benefits?: string[];
+//   ingredients?: string[];
+//   storageInfo?: string;
+//   shelfLife?: string;
+// }
+
+// const getProductDetails = (id: string): Product | undefined => {
+//   return products.find(product => product.id === id);
+// };
+
+// interface ProductDetailProps {
+//   params: Promise<{
+//     id: string;
+//   }>;
+// }
+
+// export default async function ProductDetail({ params }: ProductDetailProps) {
+//   const { id } = await params;
+//   const product = getProductDetails(id);
+  
+//   // If product not found, return not found
+//   if (!product) {
+//     return (
+//       <div className="min-h-screen flex items-center justify-center">
+//         <div className="text-center">
+//           <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
+//           <p className="text-gray-600">The product you&apos;re looking for doesn&apos;t exist.</p>
+//           <Link 
+//             href="/" 
+//             className="inline-block mt-4 text-orange-600 hover:text-orange-700 font-medium"
+//           >
+//             Back to Home
+//           </Link>
+//         </div>
+//       </div>
+//     );
+//   }
+  
+//   // Get review data
+//   const averageRating = getAverageRating(id);
+//   const reviewCount = getReviewCount(id);
+
+//   return (
+//     <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
+//       {/* Back button */}
+//       <div className="mb-8">
+//         <Link
+//           href="/"
+//           className="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium group transition-transform duration-200 ease-in-out transform hover:-translate-x-1"
+//         >
+//           <svg 
+//             className="w-5 h-5 mr-2 transition-transform duration-200 ease-in-out transform group-hover:translate-x-1" 
+//             fill="none" 
+//             stroke="currentColor" 
+//             viewBox="0 0 24 24"
+//           >
+//             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+//           </svg>
+//           Back to Products
+//         </Link>
+//       </div>
+
+//       {/* Product Detail Client Component */}
+//       <ProductDetailClient product={product} />
+
+//       {/* Customer Reviews Section */}
+//       <div className="mt-16 border-t border-gray-200 pt-12">
+//         <div className="mb-8">
+//           <h2 className="text-2xl font-bold text-gray-900 mb-4">Customer Reviews</h2>
+//           {reviewCount > 0 && (
+//             <div className="flex items-center gap-3 mb-6">
+//               <StarRating rating={averageRating} size="md" />
+//               <span className="text-lg font-medium text-gray-700">
+//                 {averageRating.toFixed(1)}
+//               </span>
+//               <span className="text-blue-600">
+//                 ({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})
+//               </span>
+//             </div>
+//           )}
+//         </div>
+//         <ReviewsDisplay productId={product.id} productName={product.name} />
+//       </div>
+//     </div>
+//   );
+// }
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
@@ -59,10 +192,10 @@ const ShareProduct = ({ productId, productName, productImage, size = 'md' }: {
   return (
     <button
       onClick={handleShare}
-      className="p-2 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-200"
+      className="p-3 text-gray-500 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-200 border border-gray-200 hover:border-orange-200 shadow-sm hover:shadow-md"
       title="Share this product"
     >
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
       </svg>
     </button>
@@ -241,8 +374,7 @@ export default function ProductDetail() {
         {/* Left Side - Gallery */}
         <div className="lg:col-span-7">
           {/* Share Button Above Gallery */}
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-gray-900">Product Gallery</h2>
+          <div className="flex justify-end items-center mb-4 w-full">
             <ShareProduct 
               productId={product.id}
               productName={product.name}
@@ -251,8 +383,8 @@ export default function ProductDetail() {
             />
           </div>
           
-          {/* Main Image/Video Display */}
-          <div className="video-gallery-container relative aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4 shadow-lg group">
+          {/* Thumbnail Navigation with Mouse-over Video Preview */} {/* Main Image/Video Display */}
+          <div className="video-gallery-container relative aspect-square sm:aspect-[4/3] lg:aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4 shadow-lg group">
             {galleryItems[currentSlide]?.type === 'video' ? (
               <video
                 className="w-full h-full object-cover"
@@ -305,19 +437,19 @@ export default function ProductDetail() {
               <>
                 <button
                   onClick={prevSlide}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100 hover:scale-110"
+                  className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-3 rounded-full shadow-lg transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:scale-110 touch-manipulation"
                   aria-label="Previous image"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
                 <button
                   onClick={nextSlide}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100 hover:scale-110"
+                  className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-3 rounded-full shadow-lg transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:scale-110 touch-manipulation"
                   aria-label="Next image"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
@@ -326,12 +458,12 @@ export default function ProductDetail() {
             
             {/* Amazon-style Gallery Indicators */}
             {galleryItems.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <div className="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-1 sm:space-x-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300">
                 {galleryItems.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    className={`w-3 h-3 sm:w-2 sm:h-2 rounded-full transition-all duration-300 touch-manipulation ${
                       currentSlide === index ? 'bg-white scale-125' : 'bg-white/60 hover:bg-white/80'
                     }`}
                   />
@@ -341,10 +473,10 @@ export default function ProductDetail() {
             
             {/* Video Indicator */}
             {galleryItems[currentSlide]?.type === 'video' && (
-              <div className="absolute top-4 left-4 bg-red-600 text-white text-sm px-3 py-1 rounded-full flex items-center shadow-lg">
-                <span className="mr-2">🔴</span>
-                <span className="font-medium">{isVideoPlaying ? 'PLAYING' : 'VIDEO'}</span>
-                <span className="ml-2 text-xs opacity-75">
+              <div className="absolute top-2 sm:top-4 left-2 sm:left-4 bg-red-600 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full flex items-center shadow-lg">
+                <span className="mr-1 sm:mr-2">🔴</span>
+                <span className="font-medium text-xs sm:text-sm">{isVideoPlaying ? 'PLAYING' : 'VIDEO'}</span>
+                <span className="ml-1 sm:ml-2 text-xs opacity-75">
                   {Math.floor(currentSlide + 1)}/{galleryItems.length}
                 </span>
               </div>
@@ -352,9 +484,8 @@ export default function ProductDetail() {
 
             {/* Image Counter for Images */}
             {galleryItems[currentSlide]?.type === 'image' && galleryItems.length > 1 && (
-              <div className="absolute top-4 left-4 bg-black/60 text-white text-sm px-3 py-1 rounded-full flex items-center shadow-lg">
-                <span className="mr-1">📷</span>
-                <span className="font-medium">
+              <div className="absolute top-2 sm:top-4 left-2 sm:left-4 bg-black/60 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full flex items-center shadow-lg">
+                <span className="font-medium text-xs sm:text-sm">
                   {currentSlide + 1} / {galleryItems.length}
                 </span>
               </div>
@@ -374,17 +505,15 @@ export default function ProductDetail() {
             {/* Amazon-style Zoom Indicator for Images */}
             {galleryItems[currentSlide]?.type === 'image' && (
               <div className="absolute top-4 right-4 bg-black/60 text-white text-xs px-2 py-1 rounded flex items-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                Hover to zoom
+                
+               
               </div>
             )}
           </div>
           
           {/* Thumbnail Navigation with Mouse-over Video Preview */}
           {galleryItems.length > 1 && (
-            <div className="flex gap-2 overflow-x-auto pb-2">
+            <div className="flex gap-1 sm:gap-2 overflow-x-auto pb-2 scrollbar-hide">
               {galleryItems.map((item, index) => (
                 <div
                   key={index}
@@ -403,7 +532,7 @@ export default function ProductDetail() {
                   <button
                     data-thumbnail={index}
                     onClick={() => handleVideoThumbnailClick(index)}
-                    className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+                    className={`relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-lg overflow-hidden border-2 transition-all duration-300 touch-manipulation ${
                       currentSlide === index 
                         ? 'border-orange-500 ring-2 ring-orange-200 shadow-lg scale-105' 
                         : 'border-gray-300 hover:border-gray-400 hover:scale-105'
@@ -525,12 +654,25 @@ export default function ProductDetail() {
 
             {/* Action Buttons */}
             <div className="space-y-3 mb-8">
-              <Link
-                href="#contact"
-                className="w-full bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-700 transition-colors duration-300 text-center block"
-              >
-                Contact for Price & Availability
-              </Link>
+                          {product.ingredients && product.ingredients.length > 0 && (
+              <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                  <span className="text-blue-600 mr-2">🥄</span>
+                  Ingredients
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {product.ingredients.map((ingredient, index) => (
+                    <span 
+                      key={index}
+                      className="px-4 py-2 bg-gray-50 text-gray-700 rounded-lg text-sm border border-gray-200 text-center"
+                    >
+                      {ingredient}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
             </div>
 
             {/* Tags */}
@@ -553,78 +695,8 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      {/* Detailed Information Tabs */}
-      <div className="mt-16 border-t border-gray-200 pt-12">
-        <div className="max-w-4xl">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Product Details</h2>
-          
-          <div className="space-y-8">
-            {/* Benefits */}
-            {product.benefits && product.benefits.length > 0 && (
-              <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                  <span className="text-green-600 mr-2">✓</span>
-                  Health Benefits
-                </h3>
-                <ul className="space-y-3">
-                  {product.benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="text-green-500 mr-3 mt-1">•</span>
-                      <span className="text-gray-700 leading-relaxed">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {/* Ingredients */}
-            {product.ingredients && product.ingredients.length > 0 && (
-              <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                  <span className="text-blue-600 mr-2">🥄</span>
-                  Ingredients
-                </h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {product.ingredients.map((ingredient, index) => (
-                    <span 
-                      key={index}
-                      className="px-4 py-2 bg-gray-50 text-gray-700 rounded-lg text-sm border border-gray-200 text-center"
-                    >
-                      {ingredient}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Storage & Usage */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {product.storageInfo && (
-                <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                    <span className="text-purple-600 mr-2">📦</span>
-                    Storage Information
-                  </h3>
-                  <p className="text-gray-700 leading-relaxed">{product.storageInfo}</p>
-                </div>
-              )}
-              
-              {product.shelfLife && (
-                <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                    <span className="text-orange-600 mr-2">⏰</span>
-                    Shelf Life
-                  </h3>
-                  <p className="text-gray-700 leading-relaxed">{product.shelfLife}</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Customer Reviews Section */}
-      <div className="mt-16 border-t border-gray-200 pt-12">
+      <div className="mt-16  pt-12">
         <ReviewsDisplay productId={product.id} productName={product.name} />
       </div>
     </div>

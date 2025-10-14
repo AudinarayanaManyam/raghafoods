@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Slider from '@/components/Slider';
 import ProductsList from '@/components/ProductsList';
-import About from './about/page';
-import Contact from './contact/page';
+import About from '@/components/About';
+import Contact from '@/components/Contact';
 
 import { categories } from '@/data/categories';
 import { scrollToProducts } from '@/utils/scroll';
@@ -62,11 +62,12 @@ const HomePage = () => {
         {/* Featured Categories Section */}
         <section id="products" className="py-8 sm:py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2 sm:mb-4">Categories</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Categories</h2>
            
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 py-4">
-              {/* Category Cards */}
-              {categories.map((category, idx) => (
+            <div className="flex justify-center">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8 md:gap-10 max-w-6xl">
+                {/* Category Cards */}
+                {categories.map((category, idx) => (
                 <div 
                   key={idx}
                   className={`flex flex-col items-center group cursor-pointer transition-all duration-300 ${
@@ -98,6 +99,7 @@ const HomePage = () => {
                   <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-800 text-center">{category.title}</h3>
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </section>

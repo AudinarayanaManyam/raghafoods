@@ -1,9 +1,0 @@
-{
-  "version": 1,
-  "functions": {
-    "/api/logo": {},
-    "/api/slide3": {},
-    "/api/slide1": {},
-    "/api/slide2": {}
-  }
-}

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import React from 'react';
+// import { useState } from 'react';
 
 interface ShareMenuProps {
   isOpen: boolean;
@@ -26,44 +27,37 @@ export const ShareMenu = ({ isOpen, onShare, onToggle, className = '' }: ShareMe
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-50">
           <div className="py-2">
             <ShareButton
-              platform="facebook"
               icon={<FacebookIcon />}
               label="Facebook"
               onClick={() => onShare('facebook')}
             />
             <ShareButton
-              platform="twitter"
               icon={<TwitterIcon />}
               label="Twitter"
               onClick={() => onShare('twitter')}
             />
             <ShareButton
-              platform="whatsapp"
               icon={<WhatsAppIcon />}
               label="WhatsApp"
               onClick={() => onShare('whatsapp')}
             />
             <ShareButton
-              platform="linkedin"
               icon={<LinkedInIcon />}
               label="LinkedIn"
               onClick={() => onShare('linkedin')}
             />
             <ShareButton
-              platform="email"
               icon={<EmailIcon />}
               label="Email"
               onClick={() => onShare('email')}
             />
             <ShareButton
-              platform="copy"
               icon={<CopyIcon />}
               label="Copy Link"
               onClick={() => onShare('copy')}
             />
             {typeof window !== 'undefined' && 'share' in navigator && (
               <ShareButton
-                platform="native"
                 icon={<NativeShareIcon />}
                 label="Share"
                 onClick={() => onShare('native')}
@@ -77,13 +71,12 @@ export const ShareMenu = ({ isOpen, onShare, onToggle, className = '' }: ShareMe
 };
 
 interface ShareButtonProps {
-  platform: string;
   icon: React.ReactNode;
   label: string;
   onClick: () => void;
 }
 
-const ShareButton = ({ platform, icon, label, onClick }: ShareButtonProps) => (
+const ShareButton = ({ icon, label, onClick }: ShareButtonProps) => (
   <button
     onClick={onClick}
     className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2 transition-colors"

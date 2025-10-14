@@ -53,10 +53,10 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/blogs">
 }
 
-// Validate ../../src/app/contact/page.tsx
+// Validate ../../src/app/faq/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/contact/page.js")
-  handler satisfies AppPageConfig<"/contact">
+  const handler = {} as typeof import("../../src/app/faq/page.js")
+  handler satisfies AppPageConfig<"/faq">
 }
 
 // Validate ../../src/app/page.tsx
@@ -65,16 +65,16 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/">
 }
 
+// Validate ../../src/app/privacy-policy/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/privacy-policy/page.js")
+  handler satisfies AppPageConfig<"/privacy-policy">
+}
+
 // Validate ../../src/app/products/[id]/page.tsx
 {
   const handler = {} as typeof import("../../src/app/products/[id]/page.js")
   handler satisfies AppPageConfig<"/products/[id]">
-}
-
-// Validate ../../src/app/products/grid/page.tsx
-{
-  const handler = {} as typeof import("../../src/app/products/grid/page.js")
-  handler satisfies AppPageConfig<"/products/grid">
 }
 
 // Validate ../../src/app/products/page.tsx
@@ -89,22 +89,16 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/promotions">
 }
 
-// Validate ../../src/app/api/analytics/route.ts
+// Validate ../../src/app/shipping-returns/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/api/analytics/route.js")
-  handler satisfies RouteHandlerConfig<"/api/analytics">
+  const handler = {} as typeof import("../../src/app/shipping-returns/page.js")
+  handler satisfies AppPageConfig<"/shipping-returns">
 }
 
-// Validate ../../src/app/api/contact/route.ts
+// Validate ../../src/app/terms-of-service/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/api/contact/route.js")
-  handler satisfies RouteHandlerConfig<"/api/contact">
-}
-
-// Validate ../../src/app/api/errors/route.ts
-{
-  const handler = {} as typeof import("../../src/app/api/errors/route.js")
-  handler satisfies RouteHandlerConfig<"/api/errors">
+  const handler = {} as typeof import("../../src/app/terms-of-service/page.js")
+  handler satisfies AppPageConfig<"/terms-of-service">
 }
 
 // Validate ../../src/app/api/logo/route.ts
@@ -117,24 +111,6 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   const handler = {} as typeof import("../../src/app/api/products/mango-pickle/route.js")
   handler satisfies RouteHandlerConfig<"/api/products/mango-pickle">
-}
-
-// Validate ../../src/app/api/promocodes/route.ts
-{
-  const handler = {} as typeof import("../../src/app/api/promocodes/route.js")
-  handler satisfies RouteHandlerConfig<"/api/promocodes">
-}
-
-// Validate ../../src/app/api/reviews/actions/route.ts
-{
-  const handler = {} as typeof import("../../src/app/api/reviews/actions/route.js")
-  handler satisfies RouteHandlerConfig<"/api/reviews/actions">
-}
-
-// Validate ../../src/app/api/reviews/route.ts
-{
-  const handler = {} as typeof import("../../src/app/api/reviews/route.js")
-  handler satisfies RouteHandlerConfig<"/api/reviews">
 }
 
 // Validate ../../src/app/api/slide1/route.tsx
