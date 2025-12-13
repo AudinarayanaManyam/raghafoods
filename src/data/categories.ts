@@ -6,7 +6,7 @@ export const categories = [
   },
   { 
     title: 'Batters', 
-    img: '/categories/Batters.jpg',
+    img: '/categories/allbatters.png',
     
   },
   { 

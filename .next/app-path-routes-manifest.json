@@ -1,0 +1,18 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/api/logo/route": "/api/logo",
+  "/api/products/mango-pickle/route": "/api/products/mango-pickle",
+  "/api/slide1/route": "/api/slide1",
+  "/api/slide2/route": "/api/slide2",
+  "/api/slide3/route": "/api/slide3",
+  "/blogs/page": "/blogs",
+  "/faq/page": "/faq",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/privacy-policy/page": "/privacy-policy",
+  "/products/[id]/page": "/products/[id]",
+  "/products/page": "/products",
+  "/promotions/page": "/promotions",
+  "/shipping-returns/page": "/shipping-returns",
+  "/terms-of-service/page": "/terms-of-service"
+}

@@ -209,9 +209,9 @@ export default function ProductsList({ selectedCategory }: ProductsListProps) {
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-4 sm:gap-6 ">
         {searchResults[0]?.items.map((product) => (
-          <div key={product.id} className="w-full">
+          <div key={product.id} className="w-full ">
             <ProductCard 
               product={product} 
               reviews={getReviewsForProduct(product.id)}

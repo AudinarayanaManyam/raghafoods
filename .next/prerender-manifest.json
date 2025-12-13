@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/products/1":{},"/products/2":{},"/products/3":{},"/products/4":{},"/products/5":{},"/products/6":{},"/products/7":{},"/products/8":{},"/products/9":{},"/products/10":{},"/products/11":{}},"dynamicRoutes":{"/products/[id]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/products/[id]","routeRegex":"^\\/products\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"d85eef9b4d93ef89f190eca8f5fa1de5","previewModeSigningKey":"40497e74c219569535963f9f8674936fc1c9e99cae00cbda35569957a2c14e21","previewModeEncryptionKey":"a358c8b5537addf2547d0ee63324e3893ff97291c9f0a95d014fb4e6f3c6c8e1"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "c1d1650129b5b75e4f4531ac077c3f24",
+    "previewModeSigningKey": "de9ccda943c13e2f409d80073859ac87139b68458eb06a401a32dcf114ec536c",
+    "previewModeEncryptionKey": "a86eaf1d9f8f4900b0845dc83b93ca86a24d2e3a53a434a84a9b313136676e1c"
+  }
+}

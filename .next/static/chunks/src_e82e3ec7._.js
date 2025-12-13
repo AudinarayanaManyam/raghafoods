@@ -17,15 +17,15 @@ var _s = __turbopack_context__.k.signature();
 const slides = [
     {
         id: 1,
-        image: '/categories/Screenshot1.png'
+        image: '/slides/Frame 51.jpg'
     },
     {
         id: 2,
-        image: '/categories/Screenshot2.png'
+        image: '/slides/Frame 52.jpg'
     },
     {
         id: 3,
-        image: '/categories/Screenshot3.png'
+        image: '/slides/Frame 53.jpg'
     }
 ];
 function Slider() {
@@ -55,76 +55,76 @@ function Slider() {
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative w-full overflow-hidden bg-gray-100 rounded-lg shadow-lg",
-        style: {
-            aspectRatio: 'clamp(4/3, 16/9, 21/9)',
-            height: 'clamp(250px, 35vw, 80vh)',
-            maxWidth: '100%',
-            minHeight: '250px',
-            width: '100vw',
-            maxHeight: '80vh'
-        },
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "h-full w-full flex transition-transform duration-500 ease-out",
-                style: {
-                    transform: "translateX(-".concat(currentSlide * 100, "%)")
-                },
-                children: slides.map((slide)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "relative h-full w-full flex-shrink-0",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute inset-0 overflow-hidden",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                        src: slide.image,
-                                        alt: "Raaga Foods Slide ".concat(slide.id, " - Product Showcase"),
-                                        fill: true,
-                                        className: "object-cover transition-transform duration-300 hover:scale-[1.02]",
-                                        style: {
-                                            objectFit: 'cover',
-                                            objectPosition: 'center center'
-                                        },
-                                        loading: slide.id === 1 ? 'eager' : 'lazy',
-                                        sizes: "100vw"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Slider.tsx",
-                                        lineNumber: 66,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/10 pointer-events-none"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Slider.tsx",
-                                        lineNumber: 79,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/components/Slider.tsx",
-                                lineNumber: 65,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "relative flex flex-col items-center justify-center h-full text-white px-4 sm:px-8"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Slider.tsx",
-                                lineNumber: 81,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, slide.id, true, {
-                        fileName: "[project]/src/components/Slider.tsx",
-                        lineNumber: 60,
-                        columnNumber: 11
-                    }, this))
+                className: "relative w-full h-0 pb-[56.25%] sm:pb-[50%] md:pb-[45%] lg:pb-[50%] xl:pb-[45%] 2xl:pb-[40%]",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "absolute inset-0 flex transition-transform duration-500 ease-out",
+                    style: {
+                        transform: "translateX(-".concat(currentSlide * 100, "%)")
+                    },
+                    children: slides.map((slide)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "relative w-full h-full flex-shrink-0",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "absolute inset-0 overflow-hidden",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                            src: slide.image,
+                                            alt: "Raaga Foods Slide ".concat(slide.id, " - Product Showcase"),
+                                            fill: true,
+                                            className: "object-cover transition-transform duration-300 hover:scale-[1.02]",
+                                            style: {
+                                                objectFit: 'cover',
+                                                objectPosition: 'center center'
+                                            },
+                                            priority: slide.id === 1,
+                                            sizes: "(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 100vw, 100vw",
+                                            quality: 85
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Slider.tsx",
+                                            lineNumber: 60,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/10 pointer-events-none"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Slider.tsx",
+                                            lineNumber: 74,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/components/Slider.tsx",
+                                    lineNumber: 59,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "relative flex flex-col items-center justify-center h-full text-white px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Slider.tsx",
+                                    lineNumber: 78,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, slide.id, true, {
+                            fileName: "[project]/src/components/Slider.tsx",
+                            lineNumber: 54,
+                            columnNumber: 13
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/src/components/Slider.tsx",
+                    lineNumber: 49,
+                    columnNumber: 9
+                }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Slider.tsx",
-                lineNumber: 55,
+                lineNumber: 47,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: prevSlide,
-                className: "absolute left-2 sm:left-4 md:left-6 lg:left-8 xl:left-10 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-2.5 md:p-3 lg:p-3.5 xl:p-4 rounded-full shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation z-40 backdrop-blur-sm border border-gray-200/50",
+                className: "absolute left-2 sm:left-3 md:left-4 lg:left-6 top-1/2 transform -translate-y-1/2 bg-white/95 hover:bg-white text-gray-800 p-1.5 sm:p-2 md:p-2.5 lg:p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 active:scale-95 backdrop-blur-sm border border-gray-200/50",
                 "aria-label": "Previous slide",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                     xmlns: "http://www.w3.org/2000/svg",
@@ -132,29 +132,29 @@ function Slider() {
                     viewBox: "0 0 24 24",
                     strokeWidth: 2.5,
                     stroke: "currentColor",
-                    className: "w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8",
+                    className: "w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                         strokeLinecap: "round",
                         strokeLinejoin: "round",
                         d: "M15.75 19.5L8.25 12l7.5-7.5"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Slider.tsx",
-                        lineNumber: 102,
+                        lineNumber: 100,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/Slider.tsx",
-                    lineNumber: 94,
+                    lineNumber: 92,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Slider.tsx",
-                lineNumber: 89,
+                lineNumber: 87,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: nextSlide,
-                className: "absolute right-2 sm:right-4 md:right-6 lg:right-8 xl:right-10 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-2.5 md:p-3 lg:p-3.5 xl:p-4 rounded-full shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation z-40 backdrop-blur-sm border border-gray-200/50",
+                className: "absolute right-2 sm:right-3 md:right-4 lg:right-6 top-1/2 transform -translate-y-1/2 bg-white/95 hover:bg-white text-gray-800 p-1.5 sm:p-2 md:p-2.5 lg:p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 active:scale-95  backdrop-blur-sm border border-gray-200/50",
                 "aria-label": "Next slide",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                     xmlns: "http://www.w3.org/2000/svg",
@@ -162,47 +162,47 @@ function Slider() {
                     viewBox: "0 0 24 24",
                     strokeWidth: 2.5,
                     stroke: "currentColor",
-                    className: "w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8",
+                    className: "w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                         strokeLinecap: "round",
                         strokeLinejoin: "round",
                         d: "M8.25 4.5l7.5 7.5-7.5 7.5"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Slider.tsx",
-                        lineNumber: 122,
+                        lineNumber: 120,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/Slider.tsx",
-                    lineNumber: 114,
+                    lineNumber: 112,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Slider.tsx",
-                lineNumber: 109,
+                lineNumber: 107,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute bottom-4 sm:bottom-5 md:bottom-6 lg:bottom-7 xl:bottom-8 left-0 right-0 z-40",
+                className: "absolute bottom-3 sm:bottom-4 md:bottom-5 lg:bottom-6 left-0 right-0 z-40",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex items-center justify-center gap-2 sm:gap-2.5 md:gap-3 lg:gap-3.5 xl:gap-4",
+                    className: "flex items-center justify-center gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3",
                     children: slides.map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             onClick: ()=>setCurrentSlide(index),
-                            className: "rounded-full transition-all duration-300 touch-manipulation backdrop-blur-sm border border-white/30 ".concat(currentSlide === index ? 'bg-white shadow-xl w-10 sm:w-12 md:w-14 lg:w-16 xl:w-18 h-3 sm:h-3.5 md:h-4 lg:h-4.5 xl:h-5' : 'bg-white/70 hover:bg-white/90 w-3 sm:w-3.5 md:w-4 lg:w-4.5 xl:w-5 h-3 sm:h-3.5 md:h-4 lg:h-4.5 xl:h-5 hover:shadow-lg'),
+                            className: "rounded-full transition-all duration-300 backdrop-blur-sm border border-white/30 ".concat(currentSlide === index ? 'bg-white shadow-lg w-6 sm:w-8 md:w-10 lg:w-12 h-2 sm:h-2.5 md:h-3 lg:h-3.5' : 'bg-white/70 hover:bg-white/90 w-2 sm:w-2.5 md:w-3 lg:w-3.5 h-2 sm:h-2.5 md:h-3 lg:h-3.5 hover:shadow-md'),
                             "aria-label": "Go to slide ".concat(index + 1)
                         }, index, false, {
                             fileName: "[project]/src/components/Slider.tsx",
-                            lineNumber: 134,
+                            lineNumber: 132,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/Slider.tsx",
-                    lineNumber: 132,
+                    lineNumber: 130,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Slider.tsx",
-                lineNumber: 131,
+                lineNumber: 129,
                 columnNumber: 7
             }, this)
         ]
@@ -1127,8 +1127,8 @@ const products = [
         image: '/products/mango-pickle-6.jpg',
         // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         additionalImages: [
-            '/categories/mango-pickle.jpg',
-            '/categories/pickle.jpg'
+            '/products/dummy.png',
+            '/products/dummy.png'
         ],
         // additionalVideos: [
         //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -1159,9 +1159,8 @@ const products = [
         image: '/products/lime-pickle-12.jpg',
         // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         additionalImages: [
-            '/products/mixed_veg.jpg',
-            '/categories/veg.jpg',
-            '/categories/pickle.jpg'
+            '/products/dummy.png',
+            '/products/dummy.png'
         ],
         // additionalVideos: [
         //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -1191,8 +1190,8 @@ const products = [
         image: '/products/GonguraRedChilli_2.png',
         // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         additionalImages: [
-            '/products/gongura.jpg',
-            '/categories/pickle.jpg'
+            '/products/dummy.png',
+            '/products/dummy.png'
         ],
         tags: [
             'gongura',
@@ -1216,11 +1215,11 @@ const products = [
         name: 'Dosa Batter',
         description: 'Fresh ground Dosa Batter made with premium rice and urad dal',
         category: 'Batters',
-        image: '/products/dos.png',
+        image: '/products/dosa.png',
         // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         additionalImages: [
-            '/products/dosa-batter.jpg',
-            '/categories/Batters.jpg'
+            '/products/dosa12 (1).png',
+            '/products/dosa12 (2).png'
         ],
         // additionalVideos: [
         //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -1248,8 +1247,8 @@ const products = [
         image: '/products/idli-batter.png',
         // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         additionalImages: [
-            '/products/idly.jpg',
-            '/categories/Batters.jpg'
+            '/products/idly1 (1).png',
+            '/products/idly1 (2).png'
         ],
         // additionalVideos: [
         //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -1277,8 +1276,8 @@ const products = [
         image: '/products/idd.png',
         // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         additionalImages: [
-            '/products/idly.jpg',
-            '/categories/Batters.jpg'
+            '/products/idlydosa1 (1).png',
+            '/products/idlydosa1 (2).png'
         ],
         // additionalVideos: [
         //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -1303,11 +1302,11 @@ const products = [
         name: 'ragi Dosa Batter',
         description: 'ragi Dosa Batter prepared with perfect proportions for soft and fluffy ragi',
         category: 'Batters',
-        image: '/products/idd.png',
+        image: '/products/ragidosa.png',
         // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         additionalImages: [
-            '/products/idly.jpg',
-            '/categories/Batters.jpg'
+            '/products/dosa1.png',
+            '/products/dosa2.png'
         ],
         // additionalVideos: [
         //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -1335,8 +1334,8 @@ const products = [
         image: '/products/Sambar-Powder-Recipe.jpg',
         // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         additionalImages: [
-            '/products/sambar.jpg',
-            '/categories/powders.jpg'
+            '/products/dummy.png',
+            '/products/dummy.png'
         ],
         // additionalVideos: [
         //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -1366,8 +1365,8 @@ const products = [
         image: '/products/rasam-powder-recipe-1.jpg',
         // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         additionalImages: [
-            '/products/rasam.jpg',
-            '/categories/powders.jpg'
+            '/products/dummy.png',
+            '/products/dummy.png'
         ],
         // additionalVideos: [
         //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -1396,8 +1395,8 @@ const products = [
         image: '/products/curry-powder.jpg',
         // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         additionalImages: [
-            '/products/curry.jpg',
-            '/categories/powders.jpg'
+            '/products/dummy.png',
+            '/products/dummy.png'
         ],
         // additionalVideos: [
         //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -1427,9 +1426,9 @@ const products = [
         image: '/products/chicken-pickle.jpg',
         // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         additionalImages: [
-            '/products/chicken.jpg',
-            '/categories/Non-Veg.jpg',
-            '/categories/pickle.jpg'
+            '/products/dummy.png',
+            '/products/dummy.png',
+            '/products/dummy.png'
         ],
         // additionalVideos: [
         //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -1920,9 +1919,9 @@ function ProductsList(param) {
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-4 sm:gap-6",
+                className: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-4 sm:gap-6 ",
                 children: (_searchResults_3 = searchResults[0]) === null || _searchResults_3 === void 0 ? void 0 : _searchResults_3.items.map((product)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "w-full",
+                        className: "w-full ",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ProductCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             product: product,
                             reviews: getReviewsForProduct(product.id),
@@ -2881,7 +2880,7 @@ const categories = [
     },
     {
         title: 'Batters',
-        img: '/categories/Batters.jpg'
+        img: '/categories/allbatters.png'
     },
     {
         title: 'Powders',

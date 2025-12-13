@@ -25,8 +25,8 @@ export const products: Product[] = [
     // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
     additionalImages: [
       
-      '/categories/mango-pickle.jpg',
-      '/categories/pickle.jpg'
+      '/products/dummy.png',
+      '/products/dummy.png'
     ],
     // additionalVideos: [
     //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -53,9 +53,9 @@ export const products: Product[] = [
     image: '/products/lime-pickle-12.jpg',
     // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
     additionalImages: [
-      '/products/mixed_veg.jpg',
-      '/categories/veg.jpg',
-      '/categories/pickle.jpg'
+      '/products/dummy.png',
+      '/products/dummy.png',
+      
     ],
     // additionalVideos: [
     //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -81,8 +81,8 @@ export const products: Product[] = [
     image: '/products/GonguraRedChilli_2.png',
     // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
     additionalImages: [
-      '/products/gongura.jpg',
-      '/categories/pickle.jpg'
+      '/products/dummy.png',
+      '/products/dummy.png'
     ],
     tags: ['gongura', 'andhra style', 'traditional', 'veg'],
     
@@ -102,11 +102,11 @@ export const products: Product[] = [
     name: 'Dosa Batter',
     description: 'Fresh ground Dosa Batter made with premium rice and urad dal',
     category: 'Batters',
-    image: '/products/dos.png',
+    image: '/products/dosa.png',
     // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
     additionalImages: [
-      '/products/dosa-batter.jpg',
-      '/categories/Batters.jpg',
+      '/products/dosa12 (1).png',
+      '/products/dosa12 (2).png',
       
     ],
     // additionalVideos: [
@@ -131,8 +131,8 @@ export const products: Product[] = [
     image: '/products/idli-batter.png',
     // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
     additionalImages: [
-      '/products/idly.jpg',
-      '/categories/Batters.jpg',
+      '/products/idly1 (1).png',
+      '/products/idly1 (2).png',
     
     ],
     // additionalVideos: [
@@ -157,8 +157,8 @@ export const products: Product[] = [
     image: '/products/idd.png',
     // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
     additionalImages: [
-      '/products/idly.jpg',
-      '/categories/Batters.jpg',
+      '/products/idlydosa1 (1).png',
+      '/products/idlydosa1 (2).png',
       
     ],
     // additionalVideos: [
@@ -181,11 +181,11 @@ export const products: Product[] = [
     name: 'ragi Dosa Batter',
     description: 'ragi Dosa Batter prepared with perfect proportions for soft and fluffy ragi',
     category: 'Batters',
-    image: '/products/idd.png',
+    image: '/products/ragidosa.png',
     // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
     additionalImages: [
-      '/products/idly.jpg',
-      '/categories/Batters.jpg',
+      '/products/dosa1.png',
+      '/products/dosa2.png',
       
     ],
     // additionalVideos: [
@@ -210,8 +210,8 @@ export const products: Product[] = [
     image: '/products/Sambar-Powder-Recipe.jpg',
     // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
     additionalImages: [
-      '/products/sambar.jpg',
-      '/categories/powders.jpg',
+      '/products/dummy.png',
+      '/products/dummy.png',
       
     ],
     // additionalVideos: [
@@ -239,8 +239,8 @@ export const products: Product[] = [
     image: '/products/rasam-powder-recipe-1.jpg',
     // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
     additionalImages: [
-      '/products/rasam.jpg',
-      '/categories/powders.jpg',
+      '/products/dummy.png',
+      '/products/dummy.png',
       
     ],
     // additionalVideos: [
@@ -267,9 +267,9 @@ export const products: Product[] = [
     image: '/products/curry-powder.jpg',
     // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
     additionalImages: [
-      '/products/curry.jpg',
-      '/categories/powders.jpg',
-      
+      '/products/dummy.png',
+      '/products/dummy.png',
+
     ],
     // additionalVideos: [
     //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
@@ -296,9 +296,9 @@ export const products: Product[] = [
     image: '/products/chicken-pickle.jpg',
     // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
     additionalImages: [
-      '/products/chicken.jpg',
-      '/categories/Non-Veg.jpg',
-      '/categories/pickle.jpg'
+      '/products/dummy.png',
+      '/products/dummy.png',
+      '/products/dummy.png'
     ],
     // additionalVideos: [
     //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
