@@ -1,20 +1,31 @@
 {
   "pages": {
     "/products/[id]/page": [
-      "static/chunks/ff1a16fafef87110.js",
-      "static/chunks/7dd66bdf8a7e5707.js",
-      "static/chunks/95e74df4cd410344.css",
-      "static/chunks/48ea3685e56213e1.js",
-      "static/chunks/1d91c26fc0454ce8.js",
-      "static/chunks/dfc06b93d2f55394.js",
-      "static/chunks/efe73658786472f7.js",
-      "static/chunks/516d862acb53fac7.js",
-      "static/chunks/6bb1247e2737c592.js",
-      "static/chunks/eb8abb6049901114.js",
-      "static/chunks/5dbf38a244ed1dc8.js",
-      "static/chunks/c19da6693934fea1.js",
-      "static/chunks/9ea5322c0c7643ae.js",
-      "static/chunks/turbopack-b23ec97dd2758f79.js"
+      "static/chunks/34341_next_dist_66f84956._.js",
+      "static/chunks/Downloads_raagafoods (2)_raagafoods_src_app_favicon_ico_mjs_a08965cd._.js",
+      "static/chunks/[root-of-the-server]__a9b6ec10._.css",
+      "static/chunks/34341_next_144e8c86._.js",
+      "static/chunks/34341_react-icons_fa_index_mjs_a6c7f9e9._.js",
+      "static/chunks/34341_react-icons_lib_e1d516ac._.js",
+      "static/chunks/Downloads_raagafoods (2)_raagafoods_src_48cc9690._.js",
+      "static/chunks/Downloads_raagafoods (2)_raagafoods_src_app_layout_tsx_1dded3fd._.js",
+      "static/chunks/34341_next_dist_client_components_builtin_global-error_79b6c33f.js",
+      "static/chunks/Downloads_raagafoods (2)_raagafoods_src_app_products_error_tsx_251befd0._.js",
+      "static/chunks/Downloads_raagafoods (2)_raagafoods_src_app_products_error_tsx_79b6c33f._.js",
+      "static/chunks/Downloads_raagafoods (2)_raagafoods_src_app_products_loading_tsx_c2c02383._.js",
+      "static/chunks/Downloads_raagafoods (2)_raagafoods_src_app_products_loading_tsx_79b6c33f._.js",
+      "static/chunks/Downloads_raagafoods (2)_raagafoods_src_ef653e18._.js",
+      "static/chunks/34341_@swc_helpers_esm__define_property_63e64f5f.js",
+      "static/chunks/Downloads_raagafoods (2)_raagafoods_src_app_products_[id]_page_tsx_79b6c33f._.js",
+      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_edf71cf3._.js",
+      "static/chunks/34341_next_dist_compiled_react-dom_cbf71edd._.js",
+      "static/chunks/34341_next_dist_compiled_next-devtools_index_9deeae4c.js",
+      "static/chunks/34341_next_dist_compiled_a37c60a3._.js",
+      "static/chunks/34341_next_dist_client_ee90fd03._.js",
+      "static/chunks/34341_next_dist_4ad0f71f._.js",
+      "static/chunks/34341_@swc_helpers_cjs_e48aa393._.js",
+      "static/chunks/Downloads_raagafoods (2)_raagafoods_a0ff3932._.js",
+      "static/chunks/turbopack-Downloads_raagafoods (2)_raagafoods_dd235131._.js"
     ]
   }
 }

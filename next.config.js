@@ -1,8 +1,8 @@
-const { optimizeImage } = require('next/dist/server/image-optimizer')
+// const { optimizeImage } = require('next/dist/server/image-optimizer')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-output: 'export',
+  // Removed output: 'export' to support dynamic API routes (/api/reviews)
   reactStrictMode: true,
   
   trailingSlash: true,

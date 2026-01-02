@@ -1,7 +1,9 @@
 {
   "/_not-found/page": "/_not-found",
+  "/api/contact/route": "/api/contact",
   "/api/logo/route": "/api/logo",
   "/api/products/mango-pickle/route": "/api/products/mango-pickle",
+  "/api/reviews/route": "/api/reviews",
   "/api/slide1/route": "/api/slide1",
   "/api/slide2/route": "/api/slide2",
   "/api/slide3/route": "/api/slide3",

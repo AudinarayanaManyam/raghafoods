@@ -1,17 +1,17 @@
 {
   "pages": {
     "/privacy-policy/page": [
-      "static/chunks/ff1a16fafef87110.js",
-      "static/chunks/7dd66bdf8a7e5707.js",
-      "static/chunks/95e74df4cd410344.css",
-      "static/chunks/48ea3685e56213e1.js",
-      "static/chunks/1d91c26fc0454ce8.js",
-      "static/chunks/6bb1247e2737c592.js",
-      "static/chunks/eb8abb6049901114.js",
-      "static/chunks/5dbf38a244ed1dc8.js",
-      "static/chunks/c19da6693934fea1.js",
-      "static/chunks/9ea5322c0c7643ae.js",
-      "static/chunks/turbopack-b23ec97dd2758f79.js"
+      "static/chunks/d39b4959fb756aaf.js",
+      "static/chunks/68bdc815c1746a93.js",
+      "static/chunks/7b08dc82b2abf143.css",
+      "static/chunks/993695ea5c851b69.js",
+      "static/chunks/6ead10468d063fc7.js",
+      "static/chunks/f7038b8e7d3d366c.js",
+      "static/chunks/6f9918024f6ad7e4.js",
+      "static/chunks/358803997f167b0e.js",
+      "static/chunks/640493eb32e541a2.js",
+      "static/chunks/3c2eea2d4285e5e9.js",
+      "static/chunks/turbopack-011e0859782775e2.js"
     ]
   }
 }

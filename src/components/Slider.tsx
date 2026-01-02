@@ -5,18 +5,23 @@ import Image from 'next/image';
 const slides = [
   {
     id: 1,
-    image: '/slides/Frame 51.jpg',
+    image: '/slides/Raaga 5.png',
     
   },
   {
     id: 2,
-    image: '/slides/Frame 52.jpg',
+    image: '/slides/Raaga 6.png',
     
   },
+
   {
     id: 3,
-    image: '/slides/Frame 53.jpg',
-    
+    image: '/slides/Raaga 7.png',
+   
+  },
+  {
+    id: 4,
+    image: '/slides/Raaga 9.png',
   }
 ];
 
@@ -42,9 +47,10 @@ export default function Slider() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden bg-gray-100 rounded-lg shadow-lg">
-      {/* Responsive container with increased height for laptop devices */}
-      <div className="relative w-full h-0 pb-[56.25%] sm:pb-[50%] md:pb-[45%] lg:pb-[50%] xl:pb-[45%] 2xl:pb-[40%]">
+    <div className="relative w-full overflow-hidden bg-gray-100 rounded-lg shadow-lg mt-4 sm:mt-6 md:mt-8 lg:mt-10">
+      {/* Responsive container for all devices */}
+      <div className="relative w-full h-[180px] xs:h-[200px] sm:h-[240px] md:h-[3px] lg:h-[350px] xl:h-[400px] 2xl:h-[450px]">
+
         {/* Slides container */}
         <div 
           className="absolute inset-0 flex transition-transform duration-500 ease-out"
@@ -74,9 +80,9 @@ export default function Slider() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/10 pointer-events-none" />
               </div>
               
-              {/* Content overlay - can be used for future text/CTA */}
+              {/* Content overlay with text */}
               <div className="relative flex flex-col items-center justify-center h-full text-white px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-                {/* Future content can go here */}
+                
               </div>
             </div>
           ))}

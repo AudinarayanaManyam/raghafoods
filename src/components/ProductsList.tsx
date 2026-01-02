@@ -5,7 +5,8 @@ import { useEffect, useState, } from 'react';
 import ProductCard from '@/components/ProductCard';
 import { useSearch } from '@/contexts/SearchContext';
 import { products } from '@/data/products';
-import { reviews as staticReviews, Review } from '@/data/reviews';
+import { Review } from '@/data/reviews';
+import reviewApiClient from '@/utils/reviewApiClient';
 
 interface SearchResult {
   category: string;
@@ -21,41 +22,42 @@ export default function ProductsList({ selectedCategory }: ProductsListProps) {
   const { searchQuery } = useSearch();
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [displayCount, setDisplayCount] = useState(8); // Initially show 12 products
+  const [displayCount, setDisplayCount] = useState(8);
   const [allProducts, setAllProducts] = useState<typeof products>([]);
 
-  // --- Local Review State ---
-  const [localReviews, setLocalReviews] = useState<Review[]>([]);
+  // --- API Review State (Production Level) ---
+  const [apiReviews, setApiReviews] = useState<Review[]>([]);
 
-  // Load local reviews from localStorage on mount
+  // Load all reviews from API on mount
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    const loadAllReviews = async () => {
       try {
-        const allKeys = Object.keys(localStorage).filter(k => k.startsWith('userReviews_'));
-        let loaded: Review[] = [];
-        allKeys.forEach(key => {
-          const arr = JSON.parse(localStorage.getItem(key) || '[]');
-          if (Array.isArray(arr)) loaded = loaded.concat(arr);
-        });
-        setLocalReviews(loaded);
-      } catch {}
-    }
+        let allReviews: Review[] = [];
+        
+        // Fetch reviews for each product from API
+        for (const product of products) {
+          try {
+            const response = await reviewApiClient.getReviews(product.id);
+            if (response.success && response.data?.reviews) {
+              allReviews = allReviews.concat(response.data.reviews);
+            }
+          } catch (error) {
+            console.error(`Failed to load reviews for product ${product.id}:`, error);
+          }
+        }
+        
+        setApiReviews(allReviews);
+      } catch (error) {
+        console.error('Failed to load all reviews:', error);
+      }
+    };
+    
+    loadAllReviews();
   }, []);
 
-  // Add review handler
+  // Add review handler - update local state immediately for instant UI feedback
   const handleAddReview = (review: Review) => {
-    setLocalReviews(prev => {
-      const updated = [review, ...prev];
-      // Save to localStorage by product
-      if (typeof window !== 'undefined') {
-        try {
-          const key = `userReviews_${review.productId}`;
-          const existing = JSON.parse(localStorage.getItem(key) || '[]');
-          localStorage.setItem(key, JSON.stringify([review, ...existing]));
-        } catch {}
-      }
-      return updated;
-    });
+    setApiReviews(prev => [review, ...prev]);
   };
 
   useEffect(() => {
@@ -180,12 +182,9 @@ export default function ProductsList({ selectedCategory }: ProductsListProps) {
     );
   }
 
-  // Helper: get reviews for a product (static + local)
+  // Helper: get reviews for a product from API (production level)
   const getReviewsForProduct = (productId: string) => {
-    return [
-      ...staticReviews.filter(r => r.productId === productId),
-      ...localReviews.filter(r => r.productId === productId)
-    ];
+    return apiReviews.filter(r => r.productId === productId);
   };
 
   return (

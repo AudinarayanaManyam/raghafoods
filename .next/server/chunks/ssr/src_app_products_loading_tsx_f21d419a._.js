@@ -1,3 +1,0 @@
-module.exports=[94784,a=>{"use strict";a.s(["default",()=>c]);var b=a.i(87924);function c(){return(0,b.jsx)("div",{className:"min-h-screen py-8 sm:py-12",children:(0,b.jsx)("div",{className:"max-w-7xl mx-auto px-4",children:(0,b.jsx)("div",{className:"flex justify-center items-center h-64",children:(0,b.jsx)("div",{className:"animate-pulse text-gray-600",children:"Loading products..."})})})})}}];
-
-//# sourceMappingURL=src_app_products_loading_tsx_f21d419a._.js.map

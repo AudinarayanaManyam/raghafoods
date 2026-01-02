@@ -113,6 +113,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies RouteHandlerConfig<"/api/products/mango-pickle">
 }
 
+// Validate ../../src/app/api/reviews/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/reviews/route.js")
+  handler satisfies RouteHandlerConfig<"/api/reviews">
+}
+
 // Validate ../../src/app/api/slide1/route.tsx
 {
   const handler = {} as typeof import("../../src/app/api/slide1/route.js")

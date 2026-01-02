@@ -13,7 +13,7 @@ export default function ContactPage() {
 
   const handleAddressClick = () => {
     // Replace these coordinates with your actual business location
-    window.open('https://www.google.com/maps?q=17.385044,78.486671', '_blank');
+    window.open('https://www.google.com/maps/place/Indis+VB+City,+208,+Bolarum+-+Turkapally+Rd,+Railway+Employees+Colony+Phase+I,+Railway+Employees+Colony,+Bolarum,+Secunderabad,+Telangana+500010/@17.5387311,78.4945351,15z/data=!3m1!4b1!4m10!1m2!2m1!1s2nd+Floor,+Flat+No+204,+E-block,+Indis+VB+City++Machha+Bollaram+Road,+Secunderabad++Medchal+Malkajgiri,+Telangana+%E2%80%93+500010!3m6!1s0x3bcb8524427ccad3:0xf4dcb8084a7a0dd8!8m2!3d17.538732!4d78.5129892!15sCnwybmQgRmxvb3IsIEZsYXQgTm8gMjA0LCBFLWJsb2NrLCBJbmRpcyBWQiBDaXR5ICBNYWNoaGEgQm9sbGFyYW0gUm9hZCwgU2VjdW5kZXJhYmFkICBNZWRjaGFsIE1hbGthamdpcmksIFRlbGFuZ2FuYSDigJMgNTAwMDEwkgERY29tcG91bmRfYnVpbGRpbmfgAQA!16s%2Fg%2F11w7qdnbkj?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D', '_blank');
   };
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -24,7 +24,7 @@ export default function ContactPage() {
     setErrorMessage('');
 
     try {
-      const response = await fetch('http://localhost:3001/raagafood_contactus', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,11 +95,22 @@ export default function ContactPage() {
             </div>
 
             {/* Address Text */}
-            <div className="group-hover:text-orange-600 transition-colors">
-              <p className="text-gray-700">123 Food Street</p>
-              <p className="text-gray-700">Industrial Area</p>
-              <p className="text-gray-700">Hyderabad, Telangana 500001</p>
-            </div>
+           {/* Address Text */}
+<div className="group-hover:text-orange-600 transition-colors">
+  <p className="text-gray-700 font-medium">GORIPARTHI RAGHAVAMMA</p>
+  <p className="text-gray-700">RAAGA HOMELY BATTERS AND PICKLES</p>
+  <p className="text-gray-700">GSTIN: 36CIDPG2839Q1ZS</p>
+  <p className="text-gray-700 mt-2">
+    2nd Floor, Flat No 204, E-block, Indis VB City
+  </p>
+  <p className="text-gray-700">
+    Machha Bollaram Road, Secunderabad
+  </p>
+  <p className="text-gray-700">
+    Medchal Malkajgiri, Telangana – 500010
+  </p>
+</div>
+
           </div>
 
           {/* Contact Details */}
@@ -117,7 +128,7 @@ export default function ContactPage() {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <span className="text-gray-700 group-hover:text-orange-600 transition-colors">info@raagafoods.com</span>
+              <span className="text-gray-700 group-hover:text-orange-600 transition-colors"> raagahomelybattersandpickles@gmail.com</span>
             </a>
             <a 
               href="tel:+911234567890" 
@@ -132,7 +143,7 @@ export default function ContactPage() {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <span className="text-gray-700 group-hover:text-orange-600 transition-colors">+91 123-456-7890</span>
+              <span className="text-gray-700 group-hover:text-orange-600 transition-colors">+91 9390687301</span>
             </a>
           </div>
 

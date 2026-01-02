@@ -187,7 +187,7 @@ const ProductCard = ({ product, reviews, addReview, variant = 'grid' }: ProductC
           <div className="flex items-center gap-2 mt-3">
             <StarRating rating={averageRating} size="sm" />
             <span className="text-sm text-gray-800 font-semibold">{averageRating.toFixed(1)}</span>
-            <span className="text-sm text-gray-600">({reviewCount})</span>
+            <span className="text-sm text-gray-600">({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})</span>
             <button
               className="ml-2 text-xs text-orange-600 underline hover:text-orange-800"
               onClick={() => setShowWriteReview(true)}
@@ -279,8 +279,8 @@ const ProductCard = ({ product, reviews, addReview, variant = 'grid' }: ProductC
         {/* Rating Display */}
         <div className="flex items-center gap-2 mt-2">
           <StarRating rating={averageRating} size="sm" />
-          
-          <span className="text-sm text-gray-600">({reviewCount})</span>
+          <span className="text-sm font-semibold text-gray-800">{averageRating.toFixed(1)}</span>
+          <span className="text-sm text-gray-600">({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})</span>
         </div>
         {showWriteReview && (
           <div className="mt-4" onClick={e => e.stopPropagation()}>

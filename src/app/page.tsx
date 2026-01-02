@@ -55,14 +55,14 @@ const HomePage = () => {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         {/* Hero Section */}
-        <div id="home" className="px-4">
+        <div id="home" className="px-4 -mt-1 sm:-mt-2 md:-mt-3">
           <Slider />
         </div>
 
         {/* Featured Categories Section */}
         <section id="products" className="py-8 sm:py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Categories</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8 text-gray-800">Categories</h2>
            
             <div className="flex justify-center">
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8 md:gap-10 max-w-6xl">
@@ -105,7 +105,7 @@ const HomePage = () => {
         </section>
 
         {/* Products Section */}
-        <section id="all-products" className="py-8 sm:py-16">
+        <section id="all-products" className="py-8 sm:py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4">
             <div className="space-y-6">
               {/* Search Section */}
@@ -140,7 +140,7 @@ const HomePage = () => {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-8 sm:py-16">
+        <section id="contact" className="py-8 sm:py-16 bg-white">
           <Contact />
         </section>
       </main>

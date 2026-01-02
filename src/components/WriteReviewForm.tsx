@@ -1,6 +1,8 @@
+'use client';
 
 import { useState } from 'react';
 import { Review } from '@/data/reviews';
+import reviewApiClient from '@/utils/reviewApiClient';
 
 interface WriteReviewFormProps {
   productId: string;
@@ -15,52 +17,75 @@ export default function WriteReviewForm({ productId, productName, onSubmit, onCa
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [userName, setUserName] = useState('');
-  // const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);
   const [location, setLocation] = useState('');
-  // Removed image upload and verified purchase fields
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lastReview, setLastReview] = useState<Partial<Review> | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const handleStarClick = (selectedRating: number) => {
     setRating(selectedRating);
   };
 
-  // Removed image upload handlers
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
+    setSuccess(false);
+
     if (rating === 0 || !title.trim() || !content.trim() || !userName.trim()) {
-      alert('Please fill in all required fields and provide a rating.');
+      setError('Please fill in all required fields and provide a rating.');
       return;
     }
 
     setIsSubmitting(true);
-  // Removed setUploadError reference
-    // Removed image upload logic
-    const newReview = {
-      productId,
-      userId: `user_${Date.now()}`,
-      userName,
-      userAvatar: undefined,
-      rating,
-      title,
-      content,
-      location: location || undefined,
-      updatedAt: new Date().toISOString(),
-      verifiedPurchase: false
-    };
 
     try {
-      onSubmit(newReview);
-      setLastReview(newReview);
-      // Reset form
-      setRating(0);
-      setTitle('');
-      setContent('');
-      setUserName('');
-      setLocation('');
-    } catch {
-      alert('Error submitting review. Please try again.');
+      const response = await reviewApiClient.submitReview({
+        productId,
+        userName: userName.trim(),
+        rating,
+        title: title.trim(),
+        content: content.trim(),
+        location: location.trim() || undefined,
+        verifiedPurchase: false,
+      });
+
+      if (response.success && response.review) {
+        setSuccess(true);
+        setLastReview(response.review);
+        
+        // Create the review object for callback
+        const newReview = {
+          productId,
+          userId: response.review.userId || `user_${Date.now()}`,
+          userName: response.review.userName,
+          rating: response.review.rating,
+          title: response.review.title,
+          content: response.review.content,
+          location: response.review.location,
+          verifiedPurchase: response.review.verifiedPurchase,
+        };
+        
+        // Call the onSubmit callback to update parent component
+        onSubmit(newReview);
+
+        // Reset form immediately
+        setRating(0);
+        setTitle('');
+        setContent('');
+        setUserName('');
+        setLocation('');
+
+        // Close the form and clear success message after 2 seconds
+        setTimeout(() => {
+          setSuccess(false);
+          onCancel(); // Close the form
+        }, 2000);
+      } else {
+        setError(response.error || 'Failed to submit review');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
     } finally {
       setIsSubmitting(false);
     }
@@ -110,6 +135,20 @@ export default function WriteReviewForm({ productId, productName, onSubmit, onCa
       <h3 className="text-xl font-bold text-gray-900 mb-6">
         Write a Customer Review for {productName}
       </h3>
+
+      {/* Success Message */}
+      {success && (
+        <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-md">
+          <p className="text-green-800 font-medium">✓ Review submitted successfully!</p>
+        </div>
+      )}
+
+      {/* Error Message */}
+      {error && (
+        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+          <p className="text-red-800 font-medium">✗ {error}</p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Overall Rating */}
@@ -169,6 +208,21 @@ export default function WriteReviewForm({ productId, productName, onSubmit, onCa
             placeholder="Enter your name"
             className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
             required
+          />
+        </div>
+
+        {/* Location */}
+        <div>
+          <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">
+            Location (optional)
+          </label>
+          <input
+            type="text"
+            id="location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="City, State"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
           />
         </div>
 

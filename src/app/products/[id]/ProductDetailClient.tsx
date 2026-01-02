@@ -265,7 +265,7 @@
 
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -300,11 +300,10 @@ const StarRating = ({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'md
 };
 
 // Share Product Component
-const ShareProduct = ({ productId, productName, productImage, size = 'md' }: { 
+const ShareProduct = ({ productId, productName, productImage }: { 
   productId: string; 
   productName: string; 
-  productImage: string; 
-  size?: 'sm' | 'md' | 'lg' 
+  productImage: string
 }) => {
   const handleShare = () => {
     const shareUrl = `${window.location.origin}/products/${productId}`;
@@ -360,7 +359,6 @@ const getProductDetails = (id: string): Product | undefined => {
 
 export default function ProductDetail() {
   const params = useParams();
-  const router = useRouter();
   const id = typeof params.id === 'string' ? params.id : '';
   const product = getProductDetails(id);
   
@@ -447,30 +445,6 @@ export default function ProductDetail() {
     }
   };
 
-  const handleBackToProducts = (e: React.MouseEvent) => {
-    e.preventDefault();
-    
-    // Navigate to home page
-    router.push('/');
-    
-    // Wait for navigation and then scroll to products section
-    setTimeout(() => {
-      const productsSection = document.getElementById('all-products');
-      const navbar = document.querySelector('nav');
-      
-      if (productsSection && navbar) {
-        const navbarHeight = navbar.getBoundingClientRect().height;
-        const elementPosition = productsSection.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = elementPosition - navbarHeight - 16;
-        
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
-    }, 500);
-  };
-
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
@@ -499,7 +473,6 @@ export default function ProductDetail() {
               productId={product.id}
               productName={product.name}
               productImage={product.image}
-              size="md"
             />
           </div>
           

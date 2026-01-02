@@ -2,16 +2,19 @@
   "devFiles": [],
   "ampDevFiles": [],
   "polyfillFiles": [
-    "static/chunks/f535c32189939795.js"
+    "static/chunks/34341_next_dist_build_polyfills_polyfill-nomodule.js"
   ],
   "lowPriorityFiles": [],
   "rootMainFiles": [
-    "static/chunks/6bb1247e2737c592.js",
-    "static/chunks/eb8abb6049901114.js",
-    "static/chunks/5dbf38a244ed1dc8.js",
-    "static/chunks/c19da6693934fea1.js",
-    "static/chunks/9ea5322c0c7643ae.js",
-    "static/chunks/turbopack-b23ec97dd2758f79.js"
+    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_edf71cf3._.js",
+    "static/chunks/34341_next_dist_compiled_react-dom_cbf71edd._.js",
+    "static/chunks/34341_next_dist_compiled_next-devtools_index_9deeae4c.js",
+    "static/chunks/34341_next_dist_compiled_a37c60a3._.js",
+    "static/chunks/34341_next_dist_client_ee90fd03._.js",
+    "static/chunks/34341_next_dist_4ad0f71f._.js",
+    "static/chunks/34341_@swc_helpers_cjs_e48aa393._.js",
+    "static/chunks/Downloads_raagafoods (2)_raagafoods_a0ff3932._.js",
+    "static/chunks/turbopack-Downloads_raagafoods (2)_raagafoods_dd235131._.js"
   ],
   "pages": {},
   "ampFirstPages": []

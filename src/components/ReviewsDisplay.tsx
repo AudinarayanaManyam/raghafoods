@@ -4,9 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import { reviews, sortReviews, filterReviewsByRating, Review } from '@/data/reviews';
 import WriteReviewForm from './WriteReviewForm';
-// import { shareUtils } from './ShareMenu';
-// import { getReviewSummary } from '@/data/reviews';
-// import { ShareMenu } from './ShareMenu';
+import reviewApiClient from '@/utils/reviewApiClient';
 
 interface ReviewsDisplayProps {
   productId: string;
@@ -17,32 +15,42 @@ interface ReviewsDisplayProps {
 export default function ReviewsDisplay({ productId, productName, className = '' }: ReviewsDisplayProps) {
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'highest' | 'lowest' | 'helpful'>('helpful');
   const [filterRating, setFilterRating] = useState<number | null>(null);
-  // const [openShareMenus, setOpenShareMenus] = useState<{ [key: string]: boolean }>({});
   const [helpfulVotes, setHelpfulVotes] = useState<{ [key: string]: { helpful: number; total: number } }>({});
   const [showWriteReview, setShowWriteReview] = useState(false);
-  const [userReviews, setUserReviews] = useState<Review[]>([]);
-
-  // Load user reviews from localStorage on mount
-  useEffect(() => {
-    const key = `userReviews_${productId}`;
-    const stored = typeof window !== 'undefined' ? localStorage.getItem(key) : null;
-    if (stored) {
-      try {
-        setUserReviews(JSON.parse(stored));
-      } catch {}
-    }
-  }, [productId]);
+  const [apiReviews, setApiReviews] = useState<Review[]>([]);
   const [showAllReviews, setShowAllReviews] = useState(false);
 
-  // Get reviews for specific product
+  // Load reviews from API
+  useEffect(() => {
+    const loadReviews = async () => {
+      const response = await reviewApiClient.getReviews(productId, sortBy, filterRating || undefined);
+      
+      if (response.success && response.data) {
+        setApiReviews(response.data.reviews);
+      } else {
+        console.error('Failed to load reviews:', response.error);
+      }
+    };
+
+    loadReviews();
+  }, [productId, sortBy, filterRating]);
+
+  // No longer need to load from localStorage - using API instead
+
+  // Get reviews for specific product (combine sample data with API data)
   const productReviews = useMemo(() => {
-    const allReviews = [...reviews, ...userReviews].filter(r => r.productId === productId);
-    return sortReviews(filterReviewsByRating(allReviews, filterRating), sortBy);
-  }, [productId, sortBy, filterRating, userReviews]);
+    const allReviews = [...reviews, ...apiReviews].filter(r => r.productId === productId);
+    // Deduplicate by ID
+    const uniqueReviews = Array.from(new Map(allReviews.map(r => [r.id, r])).values());
+    return sortReviews(filterReviewsByRating(uniqueReviews, filterRating), sortBy);
+  }, [productId, sortBy, filterRating, apiReviews]);
 
   const summary = useMemo(() => {
-    const allReviews = [...reviews, ...userReviews].filter(r => r.productId === productId);
-    if (allReviews.length === 0) {
+    const allReviews = [...reviews, ...apiReviews].filter(r => r.productId === productId);
+    // Deduplicate
+    const uniqueReviews = Array.from(new Map(allReviews.map(r => [r.id, r])).values());
+    
+    if (uniqueReviews.length === 0) {
       return {
         averageRating: 0,
         totalReviews: 0,
@@ -53,83 +61,47 @@ export default function ReviewsDisplay({ productId, productName, className = '' 
     const ratingBreakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     let totalRating = 0;
     
-    allReviews.forEach(review => {
+    uniqueReviews.forEach(review => {
       ratingBreakdown[review.rating as keyof typeof ratingBreakdown]++;
       totalRating += review.rating;
     });
     
     return {
-      averageRating: totalRating / allReviews.length,
-      totalReviews: allReviews.length,
+      averageRating: totalRating / uniqueReviews.length,
+      totalReviews: uniqueReviews.length,
       ratingBreakdown
     };
-  }, [productId, userReviews]);
+  }, [productId, apiReviews]);
 
-  // Unused functions - commented out to fix warnings
-  // const toggleShareMenu = (reviewId: string) => {
-  //   setOpenShareMenus(prev => ({
-  //     ...prev,
-  //     [reviewId]: !prev[reviewId]
-  //   }));
-  // };
-
-  // const handleShareReview = (review: Review, platform: string) => {
-  //   const reviewUrl = `${window.location.origin}/products/${productId}#review-${review.id}`;
-  //   const shareTitle = `Review: ${review.title}`;
-  //   const shareText = `"${review.content.substring(0, 100)}..." - ${review.userName} gave ${review.rating} stars to ${productName} on Raaga Foods`;
-
-  //   shareUtils.handleShare(platform, shareTitle, shareText, reviewUrl, () => {
-  //     setOpenShareMenus(prev => ({ ...prev, [review.id]: false }));
-  //   });
-  // };
-
-  // Fixed unused function - commented out to remove warning
-  // const handleHelpfulClick = (reviewId: string, currentVotes: number, totalVotes: number) => {
-  //   setHelpfulVotes(prev => {
-  //     const current = prev[reviewId] || { helpful: 0, total: 0 };
-  //     return {
-  //       ...prev,
-  //       [reviewId]: {
-  //         helpful: current.helpful + 1,
-  //         total: current.total + 1
-  //       }
-  //     };
-  //   });
-  // };
-
-  const handleHelpfulVote = (reviewId: string, isHelpful: boolean) => {
-    setHelpfulVotes(prev => {
-      const current = prev[reviewId] || { helpful: 0, total: 0 };
-      return {
-        ...prev,
-        [reviewId]: {
-          helpful: current.helpful + (isHelpful ? 1 : 0),
-          total: current.total + 1
-        }
-      };
-    });
+  const handleHelpfulVote = async (reviewId: string, isHelpful: boolean) => {
+    const response = await reviewApiClient.voteHelpful(reviewId, productId, isHelpful);
+    if (response.success) {
+      setHelpfulVotes(prev => {
+        const current = prev[reviewId] || { helpful: 0, total: 0 };
+        return {
+          ...prev,
+          [reviewId]: {
+            helpful: current.helpful + (isHelpful ? 1 : 0),
+            total: current.total + 1
+          }
+        };
+      });
+    }
   };
 
-  const handleSubmitReview = (newReview: Omit<Review, 'id' | 'createdAt' | 'helpfulVotes' | 'totalVotes'>) => {
-    const review: Review = {
+  const handleSubmitReview = async (newReview: Omit<Review, 'id' | 'createdAt' | 'helpfulVotes' | 'totalVotes'>) => {
+    // Immediately add the new review to local state
+    const reviewWithDefaults: Review = {
       ...newReview,
-      id: `user_review_${Date.now()}`,
+      id: `review_${Date.now()}`,
       createdAt: new Date().toISOString(),
       helpfulVotes: 0,
       totalVotes: 0
     };
-    setUserReviews(prev => {
-      const updated = [review, ...prev];
-      // Save to localStorage
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.setItem(`userReviews_${productId}`, JSON.stringify(updated));
-        } catch {}
-      }
-      return updated;
-    });
+    
+    // Add review to the top of the list immediately
+    setApiReviews(prev => [reviewWithDefaults, ...prev]);
     setShowWriteReview(false);
-    alert('Thank you! Your review has been submitted successfully.');
   };
 
   const StarRating = ({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'md' | 'lg' }) => {

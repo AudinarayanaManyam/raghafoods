@@ -78,7 +78,7 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
   const reviewCount = getReviewCount(id);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
+    <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12 bg-white">
       {/* Back button */}
       <div className="mb-8">
         <Link

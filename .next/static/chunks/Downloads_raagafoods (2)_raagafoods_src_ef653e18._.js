@@ -1,0 +1,3285 @@
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([typeof document === "object" ? document.currentScript : undefined,
+"[project]/Downloads/raagafoods (2)/raagafoods/src/data/reviews.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "filterReviewsByRating",
+    ()=>filterReviewsByRating,
+    "getAverageRating",
+    ()=>getAverageRating,
+    "getReviewCount",
+    ()=>getReviewCount,
+    "getReviewSummary",
+    ()=>getReviewSummary,
+    "getReviewsForProduct",
+    ()=>getReviewsForProduct,
+    "reviews",
+    ()=>reviews,
+    "sortReviews",
+    ()=>sortReviews
+]);
+const reviews = [
+    {
+        id: '1',
+        productId: 'mango-pickle',
+        userId: 'user1',
+        userName: 'Priya S.',
+        userAvatar: '/avatars/user1.jpg',
+        rating: 5,
+        title: 'Absolutely delicious!',
+        content: 'This mango pickle tastes just like my grandmother used to make. The perfect balance of sweet, sour, and spicy. The mangoes are fresh and the oil quality is excellent. Will definitely order again!',
+        images: [
+            '/reviews/mango-pickle-review1.jpg'
+        ],
+        verifiedPurchase: true,
+        helpfulVotes: 23,
+        totalVotes: 26,
+        createdAt: '2024-01-15T10:30:00Z',
+        location: 'Chennai, India',
+        reviewerRank: '#1,245 in Food Reviews'
+    },
+    {
+        id: '2',
+        productId: 'mango-pickle',
+        userId: 'user2',
+        userName: 'Rajesh K.',
+        rating: 4,
+        title: 'Good quality pickle',
+        content: 'Good taste and quality. The pickle arrived well-packaged and fresh. Only complaint is that it could be a bit more spicy for my taste, but overall very satisfied with the purchase.',
+        verifiedPurchase: true,
+        helpfulVotes: 15,
+        totalVotes: 18,
+        createdAt: '2024-01-10T14:20:00Z',
+        location: 'Bangalore, India',
+        vine: true
+    },
+    {
+        id: '3',
+        productId: 'mango-pickle',
+        userId: 'user3',
+        userName: 'Meera A.',
+        rating: 5,
+        title: 'Authentic taste!',
+        content: 'Finally found a pickle that tastes authentic! No artificial preservatives, just pure traditional taste. My family loves it and we have already placed our second order.',
+        verifiedPurchase: true,
+        helpfulVotes: 31,
+        totalVotes: 33,
+        createdAt: '2024-01-08T09:15:00Z',
+        location: 'Mumbai, India',
+        earlyReviewer: true
+    },
+    {
+        id: '4',
+        productId: 'idly-batter',
+        userId: 'user4',
+        userName: 'Ananya M.',
+        rating: 5,
+        title: 'Perfect for busy mornings',
+        content: 'This idly batter is a lifesaver for busy weekday mornings. The consistency is perfect and the idlies come out fluffy and soft every time. Great quality and saves so much time!',
+        verifiedPurchase: true,
+        helpfulVotes: 18,
+        totalVotes: 20,
+        createdAt: '2024-01-12T07:45:00Z',
+        location: 'Hyderabad, India'
+    },
+    {
+        id: '5',
+        productId: 'sambar-powder',
+        userId: 'user5',
+        userName: 'Venkat R.',
+        rating: 4,
+        title: 'Good spice blend',
+        content: 'The sambar powder has a good aroma and authentic taste. Made sambar yesterday and the family loved it. The spice level is just right - not too mild, not too hot.',
+        verifiedPurchase: true,
+        helpfulVotes: 12,
+        totalVotes: 14,
+        createdAt: '2024-01-05T16:30:00Z',
+        location: 'Delhi, India',
+        reviewerRank: '#856 in Spice Reviews'
+    },
+    {
+        id: '6',
+        productId: 'dosa-batter',
+        userId: 'user6',
+        userName: 'Kavya P.',
+        rating: 5,
+        title: 'Amazing quality!',
+        content: 'The dosa batter is perfectly fermented and makes crispy, golden dosas every time. The consistency is just right and it spreads beautifully on the pan.',
+        verifiedPurchase: true,
+        helpfulVotes: 8,
+        totalVotes: 10,
+        createdAt: '2024-01-20T12:15:00Z',
+        location: 'Coimbatore, India'
+    }
+];
+const getReviewsForProduct = (productId)=>{
+    return reviews.filter((review)=>review.productId === productId);
+};
+const getAverageRating = (productId)=>{
+    const productReviews = getReviewsForProduct(productId);
+    if (productReviews.length === 0) return 0;
+    const sum = productReviews.reduce((acc, review)=>acc + review.rating, 0);
+    return sum / productReviews.length;
+};
+const getReviewCount = (productId)=>{
+    return getReviewsForProduct(productId).length;
+};
+const getReviewSummary = (productId)=>{
+    const productReviews = getReviewsForProduct(productId);
+    const totalReviews = productReviews.length;
+    if (totalReviews === 0) {
+        return {
+            averageRating: 0,
+            totalReviews: 0,
+            ratingBreakdown: {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0
+            }
+        };
+    }
+    const ratingBreakdown = {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0
+    };
+    let totalRating = 0;
+    productReviews.forEach((review)=>{
+        ratingBreakdown[review.rating]++;
+        totalRating += review.rating;
+    });
+    return {
+        averageRating: totalRating / totalReviews,
+        totalReviews,
+        ratingBreakdown
+    };
+};
+const sortReviews = (reviews, sortBy)=>{
+    const sorted = [
+        ...reviews
+    ];
+    switch(sortBy){
+        case 'newest':
+            return sorted.sort((a, b)=>new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        case 'oldest':
+            return sorted.sort((a, b)=>new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+        case 'highest':
+            return sorted.sort((a, b)=>b.rating - a.rating);
+        case 'lowest':
+            return sorted.sort((a, b)=>a.rating - b.rating);
+        case 'helpful':
+            return sorted.sort((a, b)=>b.helpfulVotes - a.helpfulVotes);
+        default:
+            return sorted;
+    }
+};
+const filterReviewsByRating = (reviews, rating)=>{
+    if (rating === null) return reviews;
+    return reviews.filter((review)=>review.rating === rating);
+};
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/Downloads/raagafoods (2)/raagafoods/src/utils/reviewApiClient.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f40$swc$2f$helpers$2f$esm$2f$_define_property$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/node_modules/@swc/helpers/esm/_define_property.js [app-client] (ecmascript)");
+;
+class ReviewApiClient {
+    static getInstance() {
+        if (!ReviewApiClient.instance) {
+            ReviewApiClient.instance = new ReviewApiClient();
+        }
+        return ReviewApiClient.instance;
+    }
+    async submitReview(review) {
+        try {
+            const response = await fetch('/api/reviews', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(review)
+            });
+            if (!response.ok) {
+                const errorData = {};
+                try {
+                    const parsed = await response.json();
+                    Object.assign(errorData, parsed);
+                } catch (e) {
+                    errorData.error = response.statusText;
+                }
+                return {
+                    success: false,
+                    error: errorData.error || "HTTP ".concat(response.status),
+                    details: errorData.errors
+                };
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            return {
+                success: false,
+                error: error instanceof Error ? error.message : 'Network error'
+            };
+        }
+    }
+    async getReviews(productId) {
+        let sortBy = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 'newest', filterRating = arguments.length > 2 ? arguments[2] : void 0;
+        try {
+            const params = new URLSearchParams({
+                productId,
+                sortBy
+            });
+            if (filterRating) {
+                params.append('filterRating', filterRating.toString());
+            }
+            const response = await fetch("/api/reviews?".concat(params), {
+                method: 'GET'
+            });
+            if (!response.ok) {
+                const errorData = {};
+                try {
+                    const parsed = await response.json();
+                    if ('error' in parsed) {
+                        errorData.error = parsed.error;
+                    }
+                } catch (e) {
+                    errorData.error = response.statusText;
+                }
+                return {
+                    success: false,
+                    error: errorData.error || "HTTP ".concat(response.status)
+                };
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            return {
+                success: false,
+                error: error instanceof Error ? error.message : 'Network error'
+            };
+        }
+    }
+    async voteHelpful(reviewId, productId, isHelpful) {
+        try {
+            const response = await fetch('/api/reviews', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    reviewId,
+                    productId,
+                    isHelpful
+                })
+            });
+            if (!response.ok) {
+                const errorData = {};
+                try {
+                    const parsed = await response.json();
+                    if ('error' in parsed) {
+                        errorData.error = parsed.error;
+                    }
+                } catch (e) {
+                    errorData.error = response.statusText;
+                }
+                return {
+                    success: false,
+                    error: errorData.error || "HTTP ".concat(response.status)
+                };
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            return {
+                success: false,
+                error: error instanceof Error ? error.message : 'Network error'
+            };
+        }
+    }
+    constructor(){}
+}
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f40$swc$2f$helpers$2f$esm$2f$_define_property$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["_"])(ReviewApiClient, "instance", void 0);
+const __TURBOPACK__default__export__ = ReviewApiClient.getInstance();
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>WriteReviewForm
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$utils$2f$reviewApiClient$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/src/utils/reviewApiClient.ts [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+'use client';
+;
+;
+function WriteReviewForm(param) {
+    let { productId, productName, onSubmit, onCancel } = param;
+    _s();
+    const [rating, setRating] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [hoveredRating, setHoveredRating] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [title, setTitle] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [content, setContent] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [userName, setUserName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [location, setLocation] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [isSubmitting, setIsSubmitting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [lastReview, setLastReview] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [success, setSuccess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const handleStarClick = (selectedRating)=>{
+        setRating(selectedRating);
+    };
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+        setError(null);
+        setSuccess(false);
+        if (rating === 0 || !title.trim() || !content.trim() || !userName.trim()) {
+            setError('Please fill in all required fields and provide a rating.');
+            return;
+        }
+        setIsSubmitting(true);
+        try {
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$utils$2f$reviewApiClient$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].submitReview({
+                productId,
+                userName: userName.trim(),
+                rating,
+                title: title.trim(),
+                content: content.trim(),
+                location: location.trim() || undefined,
+                verifiedPurchase: false
+            });
+            if (response.success && response.review) {
+                setSuccess(true);
+                setLastReview(response.review);
+                // Create the review object for callback
+                const newReview = {
+                    productId,
+                    userId: response.review.userId || "user_".concat(Date.now()),
+                    userName: response.review.userName,
+                    rating: response.review.rating,
+                    title: response.review.title,
+                    content: response.review.content,
+                    location: response.review.location,
+                    verifiedPurchase: response.review.verifiedPurchase
+                };
+                // Call the onSubmit callback to update parent component
+                onSubmit(newReview);
+                // Reset form immediately
+                setRating(0);
+                setTitle('');
+                setContent('');
+                setUserName('');
+                setLocation('');
+                // Close the form and clear success message after 2 seconds
+                setTimeout(()=>{
+                    setSuccess(false);
+                    onCancel(); // Close the form
+                }, 2000);
+            } else {
+                setError(response.error || 'Failed to submit review');
+            }
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+        } finally{
+            setIsSubmitting(false);
+        }
+    };
+    const StarRating = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "flex items-center space-x-1",
+            children: [
+                [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ].map((star)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        type: "button",
+                        onClick: ()=>handleStarClick(star),
+                        onMouseEnter: ()=>setHoveredRating(star),
+                        onMouseLeave: ()=>setHoveredRating(0),
+                        className: "focus:outline-none",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                            className: "w-8 h-8 transition-colors ".concat(star <= (hoveredRating || rating) ? 'text-yellow-400' : 'text-gray-300'),
+                            fill: "currentColor",
+                            viewBox: "0 0 20 20",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 114,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                            lineNumber: 105,
+                            columnNumber: 11
+                        }, this)
+                    }, star, false, {
+                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                        lineNumber: 97,
+                        columnNumber: 9
+                    }, this)),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: "ml-2 text-sm text-gray-600",
+                    children: rating > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                        children: [
+                            rating,
+                            " out of 5 stars",
+                            rating === 1 && ' - Poor',
+                            rating === 2 && ' - Fair',
+                            rating === 3 && ' - Good',
+                            rating === 4 && ' - Very Good',
+                            rating === 5 && ' - Excellent'
+                        ]
+                    }, void 0, true)
+                }, void 0, false, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                    lineNumber: 118,
+                    columnNumber: 7
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+            lineNumber: 95,
+            columnNumber: 5
+        }, this);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "bg-white border rounded-lg p-6 shadow-sm",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                className: "text-xl font-bold text-gray-900 mb-6",
+                children: [
+                    "Write a Customer Review for ",
+                    productName
+                ]
+            }, void 0, true, {
+                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                lineNumber: 135,
+                columnNumber: 7
+            }, this),
+            success && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mb-4 p-4 bg-green-50 border border-green-200 rounded-md",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "text-green-800 font-medium",
+                    children: "✓ Review submitted successfully!"
+                }, void 0, false, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                    lineNumber: 142,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                lineNumber: 141,
+                columnNumber: 9
+            }, this),
+            error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mb-4 p-4 bg-red-50 border border-red-200 rounded-md",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "text-red-800 font-medium",
+                    children: [
+                        "✗ ",
+                        error
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                    lineNumber: 149,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                lineNumber: 148,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                onSubmit: handleSubmit,
+                className: "space-y-6",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                children: [
+                                    "Overall Rating ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-red-500",
+                                        children: "*"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                        lineNumber: 157,
+                                        columnNumber: 28
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 156,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StarRating, {}, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 159,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                        lineNumber: 155,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                htmlFor: "title",
+                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                children: [
+                                    "Add a headline ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-red-500",
+                                        children: "*"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                        lineNumber: 165,
+                                        columnNumber: 28
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 164,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                type: "text",
+                                id: "title",
+                                value: title,
+                                onChange: (e)=>setTitle(e.target.value),
+                                placeholder: "What's most important to know?",
+                                className: "w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+                                maxLength: 100,
+                                required: true
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 167,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-xs text-gray-500 mt-1",
+                                children: [
+                                    title.length,
+                                    "/100 characters"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 177,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                        lineNumber: 163,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                htmlFor: "content",
+                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                children: [
+                                    "Add a written review ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-red-500",
+                                        children: "*"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                        lineNumber: 183,
+                                        columnNumber: 34
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 182,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                id: "content",
+                                value: content,
+                                onChange: (e)=>setContent(e.target.value),
+                                placeholder: "What did you like or dislike? What did you use this product for?",
+                                rows: 6,
+                                className: "w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+                                maxLength: 1000,
+                                required: true
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 185,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-xs text-gray-500 mt-1",
+                                children: [
+                                    content.length,
+                                    "/1000 characters"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 195,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                        lineNumber: 181,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                htmlFor: "userName",
+                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                children: [
+                                    "Your Name ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-red-500",
+                                        children: "*"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                        lineNumber: 201,
+                                        columnNumber: 23
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 200,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                type: "text",
+                                id: "userName",
+                                value: userName,
+                                onChange: (e)=>setUserName(e.target.value),
+                                placeholder: "Enter your name",
+                                className: "w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+                                required: true
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 203,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                        lineNumber: 199,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                htmlFor: "location",
+                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                children: "Location (optional)"
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 216,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                type: "text",
+                                id: "location",
+                                value: location,
+                                onChange: (e)=>setLocation(e.target.value),
+                                placeholder: "City, State",
+                                className: "w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 219,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                        lineNumber: 215,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center justify-end space-x-3 pt-4 border-t",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "button",
+                                onClick: onCancel,
+                                className: "px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors",
+                                disabled: isSubmitting,
+                                children: "Cancel"
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 231,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "submit",
+                                disabled: isSubmitting || rating === 0 || !title.trim() || !content.trim() || !userName.trim(),
+                                className: "px-6 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors",
+                                children: isSubmitting ? 'Submitting...' : 'Submit Review'
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                                lineNumber: 239,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                        lineNumber: 230,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                lineNumber: 153,
+                columnNumber: 7
+            }, this),
+            lastReview && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mt-8 p-4 bg-gray-50 border rounded",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                        className: "font-semibold mb-2",
+                        children: "Submitted Review (JSON Format):"
+                    }, void 0, false, {
+                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                        lineNumber: 251,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pre", {
+                        className: "text-xs bg-white p-2 rounded overflow-x-auto border",
+                        children: JSON.stringify(lastReview, null, 2)
+                    }, void 0, false, {
+                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                        lineNumber: 252,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+                lineNumber: 250,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx",
+        lineNumber: 134,
+        columnNumber: 5
+    }, this);
+}
+_s(WriteReviewForm, "TUQpcrw8MPqoSXCHI++VRvtK5Zw=");
+_c = WriteReviewForm;
+var _c;
+__turbopack_context__.k.register(_c, "WriteReviewForm");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>ReviewsDisplay
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/node_modules/next/image.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$data$2f$reviews$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/src/data/reviews.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$components$2f$WriteReviewForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/src/components/WriteReviewForm.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$utils$2f$reviewApiClient$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/src/utils/reviewApiClient.ts [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+'use client';
+;
+;
+;
+;
+;
+function ReviewsDisplay(param) {
+    let { productId, productName, className = '' } = param;
+    _s();
+    const [sortBy, setSortBy] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('helpful');
+    const [filterRating, setFilterRating] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [helpfulVotes, setHelpfulVotes] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({});
+    const [showWriteReview, setShowWriteReview] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [apiReviews, setApiReviews] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [showAllReviews, setShowAllReviews] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    // Load reviews from API
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "ReviewsDisplay.useEffect": ()=>{
+            const loadReviews = {
+                "ReviewsDisplay.useEffect.loadReviews": async ()=>{
+                    const response = await __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$utils$2f$reviewApiClient$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].getReviews(productId, sortBy, filterRating || undefined);
+                    if (response.success && response.data) {
+                        setApiReviews(response.data.reviews);
+                    } else {
+                        console.error('Failed to load reviews:', response.error);
+                    }
+                }
+            }["ReviewsDisplay.useEffect.loadReviews"];
+            loadReviews();
+        }
+    }["ReviewsDisplay.useEffect"], [
+        productId,
+        sortBy,
+        filterRating
+    ]);
+    // No longer need to load from localStorage - using API instead
+    // Get reviews for specific product (combine sample data with API data)
+    const productReviews = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "ReviewsDisplay.useMemo[productReviews]": ()=>{
+            const allReviews = [
+                ...__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$data$2f$reviews$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["reviews"],
+                ...apiReviews
+            ].filter({
+                "ReviewsDisplay.useMemo[productReviews].allReviews": (r)=>r.productId === productId
+            }["ReviewsDisplay.useMemo[productReviews].allReviews"]);
+            // Deduplicate by ID
+            const uniqueReviews = Array.from(new Map(allReviews.map({
+                "ReviewsDisplay.useMemo[productReviews].uniqueReviews": (r)=>[
+                        r.id,
+                        r
+                    ]
+            }["ReviewsDisplay.useMemo[productReviews].uniqueReviews"])).values());
+            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$data$2f$reviews$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sortReviews"])((0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$data$2f$reviews$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["filterReviewsByRating"])(uniqueReviews, filterRating), sortBy);
+        }
+    }["ReviewsDisplay.useMemo[productReviews]"], [
+        productId,
+        sortBy,
+        filterRating,
+        apiReviews
+    ]);
+    const summary = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "ReviewsDisplay.useMemo[summary]": ()=>{
+            const allReviews = [
+                ...__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$data$2f$reviews$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["reviews"],
+                ...apiReviews
+            ].filter({
+                "ReviewsDisplay.useMemo[summary].allReviews": (r)=>r.productId === productId
+            }["ReviewsDisplay.useMemo[summary].allReviews"]);
+            // Deduplicate
+            const uniqueReviews = Array.from(new Map(allReviews.map({
+                "ReviewsDisplay.useMemo[summary].uniqueReviews": (r)=>[
+                        r.id,
+                        r
+                    ]
+            }["ReviewsDisplay.useMemo[summary].uniqueReviews"])).values());
+            if (uniqueReviews.length === 0) {
+                return {
+                    averageRating: 0,
+                    totalReviews: 0,
+                    ratingBreakdown: {
+                        1: 0,
+                        2: 0,
+                        3: 0,
+                        4: 0,
+                        5: 0
+                    }
+                };
+            }
+            const ratingBreakdown = {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0
+            };
+            let totalRating = 0;
+            uniqueReviews.forEach({
+                "ReviewsDisplay.useMemo[summary]": (review)=>{
+                    ratingBreakdown[review.rating]++;
+                    totalRating += review.rating;
+                }
+            }["ReviewsDisplay.useMemo[summary]"]);
+            return {
+                averageRating: totalRating / uniqueReviews.length,
+                totalReviews: uniqueReviews.length,
+                ratingBreakdown
+            };
+        }
+    }["ReviewsDisplay.useMemo[summary]"], [
+        productId,
+        apiReviews
+    ]);
+    const handleHelpfulVote = async (reviewId, isHelpful)=>{
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$utils$2f$reviewApiClient$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].voteHelpful(reviewId, productId, isHelpful);
+        if (response.success) {
+            setHelpfulVotes((prev)=>{
+                const current = prev[reviewId] || {
+                    helpful: 0,
+                    total: 0
+                };
+                return {
+                    ...prev,
+                    [reviewId]: {
+                        helpful: current.helpful + (isHelpful ? 1 : 0),
+                        total: current.total + 1
+                    }
+                };
+            });
+        }
+    };
+    const handleSubmitReview = async (newReview)=>{
+        // Immediately add the new review to local state
+        const reviewWithDefaults = {
+            ...newReview,
+            id: "review_".concat(Date.now()),
+            createdAt: new Date().toISOString(),
+            helpfulVotes: 0,
+            totalVotes: 0
+        };
+        // Add review to the top of the list immediately
+        setApiReviews((prev)=>[
+                reviewWithDefaults,
+                ...prev
+            ]);
+        setShowWriteReview(false);
+    };
+    const StarRating = (param)=>{
+        let { rating, size = 'sm' } = param;
+        const sizeClasses = {
+            sm: 'w-4 h-4',
+            md: 'w-5 h-5',
+            lg: 'w-6 h-6'
+        };
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "flex items-center",
+            children: [
+                1,
+                2,
+                3,
+                4,
+                5
+            ].map((star)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                    className: "".concat(sizeClasses[size], " ").concat(star <= rating ? 'text-yellow-400' : 'text-gray-300'),
+                    fill: "currentColor",
+                    viewBox: "0 0 20 20",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                        d: "M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    }, void 0, false, {
+                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                        lineNumber: 123,
+                        columnNumber: 13
+                    }, this)
+                }, star, false, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                    lineNumber: 117,
+                    columnNumber: 11
+                }, this))
+        }, void 0, false, {
+            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+            lineNumber: 115,
+            columnNumber: 7
+        }, this);
+    };
+    const RatingBreakdown = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "space-y-2",
+            children: [
+                5,
+                4,
+                3,
+                2,
+                1
+            ].map((rating)=>{
+                const count = summary.ratingBreakdown[rating] || 0;
+                const percentage = summary.totalReviews > 0 ? count / summary.totalReviews * 100 : 0;
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    onClick: ()=>setFilterRating(filterRating === rating ? null : rating),
+                    className: "flex items-center w-full text-sm hover:bg-gray-50 p-1 rounded transition-colors ".concat(filterRating === rating ? 'bg-blue-50 text-blue-700' : ''),
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "flex items-center gap-1 w-16",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    children: rating
+                                }, void 0, false, {
+                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                    lineNumber: 145,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                    className: "w-3 h-3 text-yellow-400",
+                                    fill: "currentColor",
+                                    viewBox: "0 0 20 20",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                        lineNumber: 147,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                    lineNumber: 146,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 144,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex-1 mx-2",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "bg-gray-200 rounded-full h-2",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "bg-yellow-400 h-2 rounded-full transition-all duration-300",
+                                    style: {
+                                        width: "".concat(percentage, "%")
+                                    }
+                                }, void 0, false, {
+                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                    lineNumber: 152,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                lineNumber: 151,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 150,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "w-8 text-right text-blue-600",
+                            children: count
+                        }, void 0, false, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 158,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, rating, true, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                    lineNumber: 137,
+                    columnNumber: 11
+                }, this);
+            })
+        }, void 0, false, {
+            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+            lineNumber: 131,
+            columnNumber: 5
+        }, this);
+    if (showWriteReview) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "bg-white ".concat(className),
+            id: "reviews",
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$components$2f$WriteReviewForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                    productId: productId,
+                    productName: productName,
+                    onSubmit: handleSubmitReview,
+                    onCancel: ()=>setShowWriteReview(false)
+                }, void 0, false, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                    lineNumber: 169,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                lineNumber: 168,
+                columnNumber: 9
+            }, this)
+        }, void 0, false, {
+            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+            lineNumber: 167,
+            columnNumber: 7
+        }, this);
+    }
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "bg-white ".concat(className),
+        id: "reviews",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "mb-8",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center justify-between mb-6",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                    className: "text-2xl font-bold text-gray-900",
+                                    children: "Customer Reviews"
+                                }, void 0, false, {
+                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                    lineNumber: 186,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setShowWriteReview(true),
+                                    className: "bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition-colors font-semibold",
+                                    children: "Write a Review"
+                                }, void 0, false, {
+                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                    lineNumber: 187,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 185,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "bg-gray-50 rounded-lg p-6",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "grid grid-cols-1 lg:grid-cols-3 gap-6",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "text-center",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "text-4xl font-bold text-gray-900 mb-2",
+                                                children: summary.totalReviews > 0 ? summary.averageRating.toFixed(1) : '0.0'
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 200,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StarRating, {
+                                                rating: Math.round(summary.averageRating),
+                                                size: "md"
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 203,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "text-sm text-gray-600 mt-1",
+                                                children: [
+                                                    summary.totalReviews,
+                                                    " customer review",
+                                                    summary.totalReviews !== 1 ? 's' : ''
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 204,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                        lineNumber: 199,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "lg:col-span-2",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                className: "font-semibold text-gray-900 mb-3",
+                                                children: "Rating Breakdown"
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 211,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(RatingBreakdown, {}, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 212,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                        lineNumber: 210,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                lineNumber: 197,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 196,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                    lineNumber: 184,
+                    columnNumber: 9
+                }, this),
+                productReviews.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center gap-4",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-sm font-medium text-gray-700",
+                                    children: "Sort by:"
+                                }, void 0, false, {
+                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                    lineNumber: 222,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                    value: sortBy,
+                                    onChange: (e)=>setSortBy(e.target.value),
+                                    className: "border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                            value: "helpful",
+                                            children: "Most Helpful"
+                                        }, void 0, false, {
+                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                            lineNumber: 228,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                            value: "newest",
+                                            children: "Newest"
+                                        }, void 0, false, {
+                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                            lineNumber: 229,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                            value: "oldest",
+                                            children: "Oldest"
+                                        }, void 0, false, {
+                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                            lineNumber: 230,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                            value: "highest",
+                                            children: "Highest Rating"
+                                        }, void 0, false, {
+                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                            lineNumber: 231,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                            value: "lowest",
+                                            children: "Lowest Rating"
+                                        }, void 0, false, {
+                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                            lineNumber: 232,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                    lineNumber: 223,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 221,
+                            columnNumber: 13
+                        }, this),
+                        filterRating && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>setFilterRating(null),
+                            className: "text-sm text-blue-600 hover:text-blue-800",
+                            children: [
+                                "Clear filter (",
+                                filterRating,
+                                " star",
+                                filterRating !== 1 ? 's' : '',
+                                ")"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 237,
+                            columnNumber: 15
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                    lineNumber: 220,
+                    columnNumber: 11
+                }, this),
+                productReviews.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "text-center py-12",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "text-gray-400 mb-4",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                className: "w-16 h-16 mx-auto",
+                                fill: "none",
+                                stroke: "currentColor",
+                                viewBox: "0 0 24 24",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                    strokeLinecap: "round",
+                                    strokeLinejoin: "round",
+                                    strokeWidth: 1,
+                                    d: "M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                                }, void 0, false, {
+                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                    lineNumber: 252,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                lineNumber: 251,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 250,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                            className: "text-lg font-medium text-gray-900 mb-2",
+                            children: "No reviews yet"
+                        }, void 0, false, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 255,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-gray-600 mb-4",
+                            children: "Be the first to share your thoughts about this product!"
+                        }, void 0, false, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 256,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>setShowWriteReview(true),
+                            className: "bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition-colors font-semibold",
+                            children: "Write the First Review"
+                        }, void 0, false, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 257,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                    lineNumber: 249,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "space-y-6",
+                    children: [
+                        (showAllReviews ? productReviews : productReviews.slice(0, 5)).map((review)=>{
+                            const currentVotes = helpfulVotes[review.id] || {
+                                helpful: 0,
+                                total: 0
+                            };
+                            const totalHelpful = review.helpfulVotes + currentVotes.helpful;
+                            const totalVotes = review.totalVotes + currentVotes.total;
+                            // const isShareMenuOpen = openShareMenus[review.id];
+                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                id: "review-".concat(review.id),
+                                className: "border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-start justify-between mb-4",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex items-start space-x-3",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center",
+                                                    children: review.userAvatar ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                        src: review.userAvatar || '/products/placeholder.jpg',
+                                                        alt: review.userName,
+                                                        width: 40,
+                                                        height: 40,
+                                                        className: "w-10 h-10 rounded-full object-cover"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                        lineNumber: 280,
+                                                        columnNumber: 31
+                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-sm font-medium text-gray-600",
+                                                        children: review.userName.charAt(0)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                        lineNumber: 282,
+                                                        columnNumber: 31
+                                                    }, this)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                    lineNumber: 278,
+                                                    columnNumber: 27
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "font-medium text-gray-900",
+                                                            children: review.userName
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                            lineNumber: 289,
+                                                            columnNumber: 29
+                                                        }, this),
+                                                        review.location && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "text-xs text-gray-500",
+                                                            children: review.location
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                            lineNumber: 291,
+                                                            columnNumber: 31
+                                                        }, this),
+                                                        review.reviewerRank && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "text-xs text-orange-600",
+                                                            children: review.reviewerRank
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                            lineNumber: 294,
+                                                            columnNumber: 31
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                    lineNumber: 288,
+                                                    columnNumber: 27
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                            lineNumber: 276,
+                                            columnNumber: 25
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                        lineNumber: 275,
+                                        columnNumber: 23
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center gap-4 mb-3",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StarRating, {
+                                                rating: review.rating
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 303,
+                                                columnNumber: 25
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "text-sm text-gray-600",
+                                                children: new Date(review.createdAt).toLocaleDateString('en-IN', {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric'
+                                                })
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 304,
+                                                columnNumber: 25
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                        lineNumber: 302,
+                                        columnNumber: 23
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex flex-wrap gap-2 mb-3",
+                                        children: [
+                                            review.verifiedPurchase && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "bg-orange-100 text-orange-800 text-xs font-medium px-2 py-1 rounded",
+                                                children: "✓ Verified Purchase"
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 315,
+                                                columnNumber: 27
+                                            }, this),
+                                            review.vine && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded",
+                                                children: "🍃 Vine Customer Review"
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 320,
+                                                columnNumber: 27
+                                            }, this),
+                                            review.earlyReviewer && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded",
+                                                children: "⭐ Early Reviewer Rewards"
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 325,
+                                                columnNumber: 27
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                        lineNumber: 313,
+                                        columnNumber: 23
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "font-semibold text-gray-900 mb-2",
+                                        children: review.title
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                        lineNumber: 331,
+                                        columnNumber: 23
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-gray-700 mb-4 leading-relaxed",
+                                        children: review.content
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                        lineNumber: 333,
+                                        columnNumber: 23
+                                    }, this),
+                                    review.images && review.images.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex gap-2 mb-4",
+                                        children: review.images.map((image, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                src: image,
+                                                alt: "Review image ".concat(index + 1),
+                                                width: 64,
+                                                height: 64,
+                                                className: "w-16 h-16 object-cover rounded border cursor-pointer hover:opacity-80"
+                                            }, index, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 338,
+                                                columnNumber: 29
+                                            }, this))
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                        lineNumber: 336,
+                                        columnNumber: 25
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center justify-between",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex items-center gap-4",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-sm text-gray-600",
+                                                        children: "Was this review helpful?"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                        lineNumber: 352,
+                                                        columnNumber: 27
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "flex gap-2",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                onClick: ()=>handleHelpfulVote(review.id, true),
+                                                                className: "text-sm text-gray-600 hover:text-gray-800 px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors",
+                                                                children: "👍 Helpful"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                                lineNumber: 354,
+                                                                columnNumber: 29
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                onClick: ()=>handleHelpfulVote(review.id, false),
+                                                                className: "text-sm text-gray-600 hover:text-gray-800 px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors",
+                                                                children: "👎 Not helpful"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                                lineNumber: 360,
+                                                                columnNumber: 29
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                        lineNumber: 353,
+                                                        columnNumber: 27
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 351,
+                                                columnNumber: 25
+                                            }, this),
+                                            totalVotes > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "text-sm text-gray-500",
+                                                children: [
+                                                    totalHelpful,
+                                                    " of ",
+                                                    totalVotes,
+                                                    " people found this helpful"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                                lineNumber: 369,
+                                                columnNumber: 27
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                        lineNumber: 350,
+                                        columnNumber: 23
+                                    }, this)
+                                ]
+                            }, review.id, true, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                lineNumber: 272,
+                                columnNumber: 21
+                            }, this);
+                        }),
+                        productReviews.length > 5 && !showAllReviews && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex justify-center mt-6",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                className: "px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors font-semibold",
+                                onClick: ()=>setShowAllReviews(true),
+                                children: "See more reviews"
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                                lineNumber: 379,
+                                columnNumber: 21
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                            lineNumber: 378,
+                            columnNumber: 19
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+                    lineNumber: 265,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+            lineNumber: 182,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/components/ReviewsDisplay.tsx",
+        lineNumber: 181,
+        columnNumber: 5
+    }, this);
+}
+_s(ReviewsDisplay, "pksihM8hg6O4KUT8HSZQMYt2u8I=");
+_c = ReviewsDisplay;
+var _c;
+__turbopack_context__.k.register(_c, "ReviewsDisplay");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/Downloads/raagafoods (2)/raagafoods/src/data/products.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "products",
+    ()=>products
+]);
+const products = [
+    {
+        id: '1',
+        name: 'Chicken Pickle',
+        description: 'Authentic Andhra Chicken Pickle made with traditional spices and pure oil',
+        category: 'Pickles',
+        image: '/products/1N8A7839.JPG',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/1N8A7840.JPG',
+            '/products/1N8A7841.JPG'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'spicy',
+            'traditional',
+            'andhra style',
+            'non-veg'
+        ],
+        ingredients: [
+            'Chicken',
+            'Mustard Oil',
+            'Red Chili Powder',
+            'Salt',
+            'Turmeric',
+            'Fenugreek Seeds',
+            'Mustard Seeds'
+        ],
+        storageInfo: 'Store in a cool, dry place. Keep away from direct sunlight.',
+        shelfLife: '4 months from manufacturing date'
+    },
+    {
+        id: '2',
+        name: 'Mutton Pickle',
+        description: 'Authentic Andhra Mutton Pickle prepared with tender mutton pieces, traditional spices, and pure oil',
+        category: 'Pickles',
+        image: '/products/1N8A7842.JPG',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/1N8A7843.JPG',
+            '/products/1N8A7844.JPG'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'spicy',
+            'traditional',
+            'andhra style',
+            'non-veg'
+        ],
+        ingredients: [
+            'Mutton',
+            'Mustard Oil',
+            'Red Chili Powder',
+            'Salt',
+            'Turmeric',
+            'Fenugreek Seeds',
+            'Mustard Seeds',
+            'Garlic'
+        ],
+        storageInfo: 'Store in a cool, dry place. Keep away from direct sunlight.',
+        shelfLife: '4 months from manufacturing date'
+    },
+    {
+        id: '3',
+        name: 'Dosa Batter',
+        description: 'Fresh ground Dosa Batter made with premium rice and urad dal',
+        category: 'Batters',
+        image: '/products/IMG-20251206-WA0013.jpg',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/1N8A7837.JPG',
+            '/products/1N8A7806.JPG'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'fresh',
+            'fermented',
+            'breakfast',
+            'veg'
+        ],
+        ingredients: [
+            'Rice',
+            'Urad Dal',
+            'Fenugreek Seeds',
+            'Salt'
+        ],
+        storageInfo: 'Keep refrigerated at 4°C',
+        shelfLife: '9 days from manufacturing date'
+    },
+    {
+        id: '4',
+        name: 'Idli Batter',
+        description: 'Idli Batter prepared with perfect proportions for soft and fluffy idlis',
+        category: 'Batters',
+        image: '/products/IMG-20251206-WA0014.jpg',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/1N8A7798.JPG',
+            '/products/1N8A7809.JPG'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'fresh',
+            'fermented',
+            'breakfast',
+            'veg'
+        ],
+        ingredients: [
+            'Rice',
+            'Urad Dal',
+            'Fenugreek Seeds',
+            'Salt'
+        ],
+        storageInfo: 'Keep refrigerated at 4°C',
+        shelfLife: '9 days from manufacturing date'
+    },
+    {
+        id: '5',
+        name: 'Idli Dosa Batter',
+        description: 'Idli Dosa Batter prepared with perfect proportions for soft and fluffy idlis',
+        category: 'Batters',
+        image: '/products/IMG-20251210-WA0013.jpg',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/1N8A7803.JPG',
+            '/products/1N8A7820.JPG'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'fresh',
+            'fermented',
+            'breakfast',
+            'veg'
+        ],
+        ingredients: [
+            'Rice',
+            'Urad Dal',
+            'Fenugreek Seeds',
+            'Salt'
+        ],
+        storageInfo: 'Keep refrigerated at 4°C',
+        shelfLife: '9 days from manufacturing date'
+    },
+    {
+        id: '6',
+        name: 'ragi Dosa Batter',
+        description: 'ragi Dosa Batter prepared with perfect proportions for soft and fluffy ragi',
+        category: 'Batters',
+        image: '/products/IMG-20251210-WA0014.jpg',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/1N8A7796.JPG',
+            '/products/1N8A7824.JPG'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'fresh',
+            'fermented',
+            'breakfast',
+            'veg'
+        ],
+        ingredients: [
+            'Rice',
+            'Urad Dal',
+            'Fenugreek Seeds',
+            'Salt'
+        ],
+        storageInfo: 'Keep refrigerated at 4°C',
+        shelfLife: '9 days from manufacturing date'
+    },
+    {
+        id: '7',
+        name: 'Jeera Powder',
+        description: 'Jeera Powder made from premium roasted cumin seeds for rich aroma and flavor',
+        category: 'Powders',
+        image: '/products/1N8A7830.JPG',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/1N8A7831.JPG',
+            '/products/1N8A7832.JPG'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'spices',
+            'single spice',
+            'aromatic'
+        ],
+        ingredients: [
+            'Cumin Seeds'
+        ],
+        storageInfo: 'Store in an airtight container in a cool, dry place',
+        shelfLife: '6 months from manufacturing date'
+    },
+    {
+        id: '8',
+        name: 'Dhaniyalu Powder',
+        description: 'Dhaniyalu (Coriander) Powder made from premium roasted coriander seeds for a fresh and aromatic flavor',
+        category: 'Powders',
+        image: '/products/1N8A7833.JPG',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/1N8A7834.JPG',
+            '/products/1N8A7835.JPG'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'spices',
+            'single spice',
+            'aromatic'
+        ],
+        ingredients: [
+            'Coriander Seeds'
+        ],
+        storageInfo: 'Store in an airtight container in a cool, dry place',
+        shelfLife: '6 months from manufacturing date'
+    },
+    {
+        id: '9',
+        name: 'Sambar Powder',
+        description: 'Sambar Powder made with roasted spices and lentils',
+        category: 'Powders',
+        image: '/products/Sambar-Powder-Recipe.jpg',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/dummy.png',
+            '/products/dummy.png'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'spices',
+            'blend',
+            'authentic'
+        ],
+        ingredients: [
+            'Coriander',
+            'Red Chilies',
+            'Turmeric',
+            'Cumin',
+            'Fenugreek',
+            'Black Pepper',
+            'Curry Leaves'
+        ],
+        storageInfo: 'Store in an airtight container in a cool, dry place',
+        shelfLife: '6 months from manufacturing date'
+    },
+    {
+        id: '10',
+        name: 'Rasam Powder',
+        description: 'Rasam Powder blended with handpicked spices for authentic taste',
+        category: 'Powders',
+        image: '/products/rasam-powder-recipe-1.jpg',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/dummy.png',
+            '/products/dummy.png'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'spices',
+            'blend',
+            'authentic'
+        ],
+        ingredients: [
+            'Black Pepper',
+            'Cumin',
+            'Coriander',
+            'Red Chilies',
+            'Garlic',
+            'Curry Leaves'
+        ],
+        storageInfo: 'Store in an airtight container in a cool, dry place',
+        shelfLife: '6 months from manufacturing date'
+    },
+    {
+        id: '11',
+        name: 'Curry Powder',
+        description: 'Special Curry Powder perfect for vegetable and meat dishes',
+        category: 'Powders',
+        image: '/products/curry-powder.jpg',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/dummy.png',
+            '/products/dummy.png'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'spices',
+            'blend',
+            'versatile'
+        ],
+        ingredients: [
+            'Coriander',
+            'Cumin',
+            'Turmeric',
+            'Red Chilies',
+            'Black Pepper',
+            'Cardamom',
+            'Cinnamon'
+        ],
+        storageInfo: 'Store in an airtight container in a cool, dry place',
+        shelfLife: '6 months from manufacturing date'
+    },
+    {
+        id: '12',
+        name: 'Mango Pickle',
+        description: 'Authentic Andhra Mango Pickle made with traditional spices and pure oil',
+        category: 'Pickles',
+        image: '/products/mango-pickle-6.jpg',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/dummy.png',
+            '/products/dummy.png'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'spicy',
+            'traditional',
+            'andhra style',
+            'veg'
+        ],
+        ingredients: [
+            'Raw Mangoes',
+            'Mustard Oil',
+            'Red Chili Powder',
+            'Salt',
+            'Turmeric',
+            'Fenugreek Seeds',
+            'Mustard Seeds'
+        ],
+        storageInfo: 'Store in a cool, dry place. Keep away from direct sunlight.',
+        shelfLife: '4 months from manufacturing date'
+    },
+    {
+        id: '13',
+        name: 'Lime Pickle',
+        description: 'Spicy Lime Pickle with a perfect blend of spices',
+        category: 'Pickles',
+        image: '/products/lime-pickle-12.jpg',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/dummy.png',
+            '/products/dummy.png'
+        ],
+        // additionalVideos: [
+        //   'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+        // ],
+        tags: [
+            'mixed veg',
+            'spicy',
+            'traditional',
+            'veg'
+        ],
+        ingredients: [
+            'Mixed Vegetables',
+            'Mustard Oil',
+            'Red Chili Powder',
+            'Salt',
+            'Turmeric',
+            'Spices'
+        ],
+        storageInfo: 'Store in a cool, dry place. Keep away from direct sunlight.',
+        shelfLife: '4 months from manufacturing date'
+    },
+    {
+        id: '14',
+        name: 'Gongura Pickle',
+        description: 'Homestyle Gongura Pickle, a traditional Andhra delicacy',
+        category: 'Pickles',
+        image: '/products/GonguraRedChilli_2.png',
+        // videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+        additionalImages: [
+            '/products/dummy.png',
+            '/products/dummy.png'
+        ],
+        tags: [
+            'gongura',
+            'andhra style',
+            'traditional',
+            'veg'
+        ],
+        ingredients: [
+            'Gongura Leaves',
+            'Red Chili Powder',
+            'Salt',
+            'Garlic',
+            'Oil',
+            'Spices'
+        ],
+        storageInfo: 'Store in a cool, dry place. Keep away from direct sunlight.',
+        shelfLife: '4 months from manufacturing date'
+    }
+];
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+// 'use client';
+// import { useState } from 'react';
+// import Image from 'next/image';
+// import { useRouter } from 'next/navigation';
+// interface Product {
+//   id: string;
+//   name: string;
+//   description: string;
+//   category: string;
+//   image?: string;
+//   videoUrl?: string;
+//   additionalImages?: string[];
+//   additionalVideos?: string[];
+//   tags?: string[];
+//   ingredients?: string[];
+//   storageInfo?: string;
+//   shelfLife?: string;
+// }
+// interface ProductDetailClientProps {
+//   product: Product;
+// }
+// export default function ProductDetailClient({ product }: ProductDetailClientProps) {
+//   const router = useRouter();
+//   const [currentSlide, setCurrentSlide] = useState(0);
+//   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+//   const [imageError, setImageError] = useState(false);
+//   const [hoveredThumbnail, setHoveredThumbnail] = useState<number | null>(null);
+//   // const [previewVideo, setPreviewVideo] = useState<string | null>(null);
+//   const handleShare = () => {
+//     const shareUrl = `${window.location.origin}/products/${product.id}`;
+//     const shareText = `Check out ${product.name} from Raaga Foods!`;
+//     if (typeof window !== 'undefined' && 'share' in navigator) {
+//       navigator.share({
+//         title: product.name,
+//         text: shareText,
+//         url: shareUrl
+//       });
+//     } else {
+//       // Fallback to WhatsApp
+//       const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`;
+//       window.open(whatsappUrl, '_blank');
+//     }
+//   };
+//   // Create gallery items (images + videos)
+//   const galleryItems = [
+//     { type: 'image', src: product?.image || '/products/placeholder.jpg', alt: `${product?.name} - Main Image` },
+//     ...(product?.additionalImages || []).map((img, index) => ({
+//       type: 'image' as const,
+//       src: img,
+//       alt: `${product?.name} - Image ${index + 2}`
+//     })),
+//     ...(product?.videoUrl ? [{ type: 'video' as const, src: product.videoUrl, alt: `${product?.name} - Product Video` }] : []),
+//     ...(product?.additionalVideos || []).map((video, index) => ({
+//       type: 'video' as const,
+//       src: video,
+//       alt: `${product?.name} - Video ${index + 2}`
+//     }))
+//   ];
+//   const nextSlide = () => {
+//     setCurrentSlide((prev: number) => (prev + 1) % galleryItems.length);
+//   };
+//   const prevSlide = () => {
+//     setCurrentSlide((prev: number) => (prev - 1 + galleryItems.length) % galleryItems.length);
+//   };
+//   const goToSlide = (index: number) => {
+//     setCurrentSlide(index);
+//   };
+//   const handleThumbnailHover = (index: number | null) => {
+//     setHoveredThumbnail(index);
+//     // Video preview functionality can be added later if needed
+//   };
+//   const handleImageError = () => {
+//     setImageError(true);
+//   };
+//   return (
+//     <div className="bg-white">
+//       {/* Product Gallery */}
+//       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+//         {/* Main Gallery */}
+//         <div className="space-y-4">
+//           {/* Main Image/Video Display */}
+//           <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden">
+//             {galleryItems[currentSlide]?.type === 'video' ? (
+//               <video
+//                 src={galleryItems[currentSlide].src}
+//                 className="w-full h-full object-cover"
+//                 controls
+//                 autoPlay={isVideoPlaying}
+//                 onPlay={() => setIsVideoPlaying(true)}
+//                 onPause={() => setIsVideoPlaying(false)}
+//               />
+//             ) : (
+//               <Image
+//                 src={imageError ? '/products/placeholder.jpg' : (galleryItems[currentSlide]?.src || '/products/placeholder.jpg')}
+//                 alt={galleryItems[currentSlide]?.alt || `${product.name} - Product Image`}
+//                 fill
+//                 className="object-cover"
+//                 sizes="(max-width: 1024px) 100vw, 50vw"
+//                 priority
+//                 onError={handleImageError}
+//               />
+//             )}
+//             {/* Navigation Arrows */}
+//             {galleryItems.length > 1 && (
+//               <>
+//                 <button
+//                   onClick={prevSlide}
+//                   className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+//                   aria-label="Previous image"
+//                 >
+//                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+//                   </svg>
+//                 </button>
+//                 <button
+//                   onClick={nextSlide}
+//                   className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+//                   aria-label="Next image"
+//                 >
+//                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+//                   </svg>
+//                 </button>
+//               </>
+//             )}
+//           </div>
+//           {/* Thumbnail Gallery */}
+//           {galleryItems.length > 1 && (
+//             <div className="flex gap-2 overflow-x-auto pb-2">
+//               {galleryItems.map((item, index) => (
+//                 <button
+//                   key={index}
+//                   onClick={() => goToSlide(index)}
+//                   onMouseEnter={() => handleThumbnailHover(index)}
+//                   onMouseLeave={() => handleThumbnailHover(null)}
+//                   className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+//                     index === currentSlide
+//                       ? 'border-orange-500 ring-2 ring-orange-200'
+//                       : 'border-gray-200 hover:border-gray-300'
+//                   }`}
+//                 >
+//                   {item.type === 'video' ? (
+//                     <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+//                       <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+//                         <path d="M8 5v14l11-7z"/>
+//                       </svg>
+//                     </div>
+//                   ) : (
+//                     <Image
+//                       src={item.src}
+//                       alt={item.alt}
+//                       fill
+//                       className="object-cover"
+//                       sizes="80px"
+//                     />
+//                   )}
+//                   {hoveredThumbnail === index && item.type === 'video' && (
+//                     <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+//                       <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+//                         <path d="M8 5v14l11-7z"/>
+//                       </svg>
+//                     </div>
+//                   )}
+//                 </button>
+//               ))}
+//             </div>
+//           )}
+//         </div>
+//         {/* Product Information */}
+//         <div className="space-y-6">
+//           {/* Share Button */}
+//           <div className="flex justify-end">
+//             <button
+//               onClick={handleShare}
+//               className="p-3 text-gray-500 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-200 border border-gray-200 hover:border-orange-200 shadow-sm hover:shadow-md"
+//               title="Share this product"
+//             >
+//               <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+//               </svg>
+//             </button>
+//           </div>
+//           <div>
+//             <div className="flex items-center gap-2 mb-2">
+//               <span className="inline-block px-3 py-1 text-sm bg-orange-100 text-orange-600 rounded-full">
+//                 {product.category}
+//               </span>
+//             </div>
+//             <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.name}</h1>
+//             <p className="text-lg text-gray-600 leading-relaxed">{product.description}</p>
+//           </div>
+//           {/* Tags */}
+//           {product.tags && product.tags.length > 0 && (
+//             <div className="space-y-2">
+//               <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Tags</h3>
+//               <div className="flex flex-wrap gap-2">
+//                 {product.tags.map((tag, index) => (
+//                   <span
+//                     key={index}
+//                     className="inline-block px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-full"
+//                   >
+//                     {tag}
+//                   </span>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+//           {/* Ingredients */}
+//           {product.ingredients && product.ingredients.length > 0 && (
+//             <div className="space-y-2">
+//               <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Ingredients</h3>
+//               <ul className="text-gray-600 space-y-1">
+//                 {product.ingredients.map((ingredient, index) => (
+//                   <li key={index} className="flex items-center gap-2">
+//                     <span className="w-1.5 h-1.5 bg-orange-400 rounded-full flex-shrink-0"></span>
+//                     {ingredient}
+//                   </li>
+//                 ))}
+//               </ul>
+//             </div>
+//           )}
+//           {/* Storage & Shelf Life */}
+//           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+//             {product.storageInfo && (
+//               <div className="space-y-2">
+//                 <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Storage</h3>
+//                 <p className="text-gray-600">{product.storageInfo}</p>
+//               </div>
+//             )}
+//             {product.shelfLife && (
+//               <div className="space-y-2">
+//                 <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Shelf Life</h3>
+//                 <p className="text-gray-600">{product.shelfLife}</p>
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+__turbopack_context__.s([
+    "default",
+    ()=>ProductDetail
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/node_modules/next/navigation.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/node_modules/next/image.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$data$2f$products$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/src/data/products.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$data$2f$reviews$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/raagafoods (2)/raagafoods/src/data/reviews.ts [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+'use client';
+;
+;
+;
+;
+;
+;
+// Star Rating Component
+const StarRating = (param)=>{
+    let { rating, size = 'md' } = param;
+    const sizeClasses = {
+        sm: 'w-4 h-4',
+        md: 'w-5 h-5',
+        lg: 'w-6 h-6'
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "flex items-center",
+        children: [
+            1,
+            2,
+            3,
+            4,
+            5
+        ].map((star)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                className: "".concat(sizeClasses[size], " ").concat(star <= rating ? 'text-yellow-400' : 'text-gray-300'),
+                fill: "currentColor",
+                viewBox: "0 0 20 20",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                    d: "M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                }, void 0, false, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                    lineNumber: 295,
+                    columnNumber: 11
+                }, ("TURBOPACK compile-time value", void 0))
+            }, star, false, {
+                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                lineNumber: 289,
+                columnNumber: 9
+            }, ("TURBOPACK compile-time value", void 0)))
+    }, void 0, false, {
+        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+        lineNumber: 287,
+        columnNumber: 5
+    }, ("TURBOPACK compile-time value", void 0));
+};
+_c = StarRating;
+// Share Product Component
+const ShareProduct = (param)=>{
+    let { productId, productName, productImage } = param;
+    const handleShare = ()=>{
+        const shareUrl = "".concat(window.location.origin, "/products/").concat(productId);
+        const shareText = "Check out ".concat(productName, " from Raaga Foods!");
+        const shareImage = productImage || "".concat(window.location.origin, "/products/placeholder.jpg");
+        if ("object" !== 'undefined' && 'share' in navigator) {
+            navigator.share({
+                title: productName,
+                text: shareText,
+                url: shareUrl,
+                files: [
+                    new File([
+                        shareImage
+                    ], 'image.jpg', {
+                        type: 'image/jpeg'
+                    })
+                ]
+            });
+        } else {
+            // Fallback to WhatsApp
+            const whatsappUrl = "https://wa.me/?text=".concat(encodeURIComponent("".concat(shareText, " ").concat(shareUrl, " ").concat(shareImage)));
+            window.open(whatsappUrl, '_blank');
+        }
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+        onClick: handleShare,
+        className: "p-3 text-gray-500 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-200 border border-gray-200 hover:border-orange-200 shadow-sm hover:shadow-md",
+        title: "Share this product",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+            className: "w-5 h-5 sm:w-6 sm:h-6",
+            fill: "none",
+            stroke: "currentColor",
+            viewBox: "0 0 24 24",
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 2,
+                d: "M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"
+            }, void 0, false, {
+                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                lineNumber: 334,
+                columnNumber: 9
+            }, ("TURBOPACK compile-time value", void 0))
+        }, void 0, false, {
+            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+            lineNumber: 333,
+            columnNumber: 7
+        }, ("TURBOPACK compile-time value", void 0))
+    }, void 0, false, {
+        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+        lineNumber: 328,
+        columnNumber: 5
+    }, ("TURBOPACK compile-time value", void 0));
+};
+_c1 = ShareProduct;
+const getProductDetails = (id)=>{
+    return __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$data$2f$products$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["products"].find((product)=>product.id === id);
+};
+function ProductDetail() {
+    var _galleryItems_currentSlide, _galleryItems_currentSlide1, _galleryItems_currentSlide2, _galleryItems_currentSlide3, _galleryItems_currentSlide4, _galleryItems_currentSlide5, _galleryItems_currentSlide6;
+    _s();
+    const params = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"])();
+    const id = typeof params.id === 'string' ? params.id : '';
+    const product = getProductDetails(id);
+    const [currentSlide, setCurrentSlide] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [isVideoPlaying, setIsVideoPlaying] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [imageError, setImageError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [hoveredThumbnail, setHoveredThumbnail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [previewVideo, setPreviewVideo] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    // Get review data
+    const averageRating = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$data$2f$reviews$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getAverageRating"])(id);
+    const reviewCount = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$src$2f$data$2f$reviews$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getReviewCount"])(id);
+    // Create gallery items (images + videos)
+    const galleryItems = [
+        {
+            type: 'image',
+            src: (product === null || product === void 0 ? void 0 : product.image) || '/products/placeholder.jpg',
+            alt: "".concat(product === null || product === void 0 ? void 0 : product.name, " - Main Image")
+        },
+        ...((product === null || product === void 0 ? void 0 : product.additionalImages) || []).map((img, index)=>({
+                type: 'image',
+                src: img,
+                alt: "".concat(product === null || product === void 0 ? void 0 : product.name, " - Image ").concat(index + 2)
+            })),
+        ...(product === null || product === void 0 ? void 0 : product.videoUrl) ? [
+            {
+                type: 'video',
+                src: product.videoUrl,
+                alt: "".concat(product === null || product === void 0 ? void 0 : product.name, " - Product Video")
+            }
+        ] : [],
+        ...((product === null || product === void 0 ? void 0 : product.additionalVideos) || []).map((video, index)=>({
+                type: 'video',
+                src: video,
+                alt: "".concat(product === null || product === void 0 ? void 0 : product.name, " - Video ").concat(index + 2)
+            }))
+    ];
+    const nextSlide = ()=>{
+        setCurrentSlide((prev)=>(prev + 1) % galleryItems.length);
+    };
+    const prevSlide = ()=>{
+        setCurrentSlide((prev)=>(prev - 1 + galleryItems.length) % galleryItems.length);
+    };
+    const goToSlide = (index)=>{
+        var _galleryItems_index;
+        setCurrentSlide(index);
+        // If it's a video slide, scroll to video and play it
+        if (((_galleryItems_index = galleryItems[index]) === null || _galleryItems_index === void 0 ? void 0 : _galleryItems_index.type) === 'video') {
+            // Scroll to the video container
+            const videoContainer = document.querySelector('.video-gallery-container');
+            if (videoContainer) {
+                const navbar = document.querySelector('nav');
+                const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 0;
+                const elementPosition = videoContainer.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - navbarHeight - 20; // 20px extra padding
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+            // Small delay to ensure scroll completes, then play video
+            setTimeout(()=>{
+                const videoElement = document.querySelector('video');
+                if (videoElement) {
+                    setIsVideoPlaying(true);
+                    videoElement.play().catch(console.error);
+                }
+            }, 500);
+        }
+    };
+    // Enhanced video click handler
+    const handleVideoThumbnailClick = (index)=>{
+        var _galleryItems_index;
+        if (((_galleryItems_index = galleryItems[index]) === null || _galleryItems_index === void 0 ? void 0 : _galleryItems_index.type) === 'video') {
+            goToSlide(index);
+            // Add visual feedback
+            const thumbnail = document.querySelector('[data-thumbnail="'.concat(index, '"]'));
+            if (thumbnail) {
+                thumbnail.classList.add('animate-pulse');
+                setTimeout(()=>{
+                    thumbnail.classList.remove('animate-pulse');
+                }, 1000);
+            }
+        } else {
+            setCurrentSlide(index);
+        }
+    };
+    if (!product) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "min-h-screen flex flex-col items-center justify-center p-4",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                    className: "text-2xl font-bold text-gray-800 mb-4",
+                    children: "Product not found"
+                }, void 0, false, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                    lineNumber: 451,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                    href: "/products",
+                    className: "text-orange-600 hover:text-orange-700 font-medium",
+                    children: "Back to Products"
+                }, void 0, false, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                    lineNumber: 452,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+            lineNumber: 450,
+            columnNumber: 7
+        }, this);
+    }
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "max-w-7xl mx-auto px-4 py-8 sm:py-12",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "grid grid-cols-1 lg:grid-cols-12 gap-8",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "lg:col-span-7",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex justify-end items-center mb-4 w-full",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ShareProduct, {
+                                productId: product.id,
+                                productName: product.name,
+                                productImage: product.image
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                lineNumber: 472,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                            lineNumber: 471,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex gap-4",
+                            children: [
+                                galleryItems.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex flex-col gap-2 ",
+                                    children: galleryItems.map((item, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "relative flex-shrink-0",
+                                            onMouseEnter: ()=>{
+                                                setHoveredThumbnail(index);
+                                                if (item.type === 'video') {
+                                                    setPreviewVideo(item.src);
+                                                }
+                                            },
+                                            onMouseLeave: ()=>{
+                                                setHoveredThumbnail(null);
+                                                setPreviewVideo(null);
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    "data-thumbnail": index,
+                                                    onClick: ()=>handleVideoThumbnailClick(index),
+                                                    className: "relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-lg overflow-hidden border-2 transition-all duration-300 touch-manipulation ".concat(currentSlide === index ? 'border-orange-500 ring-2 ring-orange-200 shadow-lg scale-105' : 'border-gray-300 hover:border-gray-400 hover:scale-105', " ").concat(item.type === 'video' ? 'hover:border-red-400' : ''),
+                                                    title: item.type === 'video' ? 'Click to play video' : 'View image',
+                                                    children: item.type === 'video' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "w-full h-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center relative overflow-hidden",
+                                                        children: [
+                                                            hoveredThumbnail === index && previewVideo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
+                                                                className: "absolute inset-0 w-full h-full object-cover",
+                                                                muted: true,
+                                                                autoPlay: true,
+                                                                loop: true,
+                                                                playsInline: true,
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("source", {
+                                                                    src: previewVideo,
+                                                                    type: "video/mp4"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                    lineNumber: 520,
+                                                                    columnNumber: 31
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                lineNumber: 513,
+                                                                columnNumber: 29
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "absolute inset-0 transition-opacity duration-300 ".concat(hoveredThumbnail === index ? 'opacity-30' : 'opacity-100'),
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "absolute inset-0 bg-black/20"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                        lineNumber: 528,
+                                                                        columnNumber: 29
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "relative flex flex-col items-center justify-center h-full",
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                className: "text-white text-lg mb-1",
+                                                                                children: "🎬"
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                                lineNumber: 530,
+                                                                                columnNumber: 31
+                                                                            }, this),
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                className: "w-4 h-4 bg-white rounded-full flex items-center justify-center",
+                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    className: "text-red-600 text-xs",
+                                                                                    children: "▶"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                                    lineNumber: 532,
+                                                                                    columnNumber: 33
+                                                                                }, this)
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                                lineNumber: 531,
+                                                                                columnNumber: 31
+                                                                            }, this)
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                        lineNumber: 529,
+                                                                        columnNumber: 29
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                lineNumber: 525,
+                                                                columnNumber: 27
+                                                            }, this),
+                                                            currentSlide === index && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse z-10"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                lineNumber: 539,
+                                                                columnNumber: 29
+                                                            }, this),
+                                                            hoveredThumbnail === index && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "absolute inset-0 border-2 border-red-400 rounded-lg animate-pulse"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                lineNumber: 544,
+                                                                columnNumber: 29
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                        lineNumber: 510,
+                                                        columnNumber: 25
+                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "relative w-full h-full",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                                src: item.src,
+                                                                alt: item.alt,
+                                                                fill: true,
+                                                                className: "object-cover transition-all duration-300 ".concat(hoveredThumbnail === index ? 'scale-110 brightness-110' : ''),
+                                                                sizes: "80px"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                lineNumber: 549,
+                                                                columnNumber: 27
+                                                            }, this),
+                                                            hoveredThumbnail === index && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "absolute inset-0 bg-white/20 border-2 border-orange-400 rounded-lg"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                lineNumber: 560,
+                                                                columnNumber: 29
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                        lineNumber: 548,
+                                                        columnNumber: 25
+                                                    }, this)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                    lineNumber: 499,
+                                                    columnNumber: 21
+                                                }, this),
+                                                item.type === 'video' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "absolute -top-1 -right-1 bg-red-600 text-white text-xs px-1.5 py-0.5 rounded-full font-bold shadow-lg",
+                                                    children: "VIDEO"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                    lineNumber: 568,
+                                                    columnNumber: 23
+                                                }, this)
+                                            ]
+                                        }, index, true, {
+                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                            lineNumber: 485,
+                                            columnNumber: 19
+                                        }, this))
+                                }, void 0, false, {
+                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                    lineNumber: 483,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-1",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "video-gallery-container relative aspect-square sm:aspect-[4/3] lg:aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4 shadow-lg group",
+                                        children: [
+                                            ((_galleryItems_currentSlide = galleryItems[currentSlide]) === null || _galleryItems_currentSlide === void 0 ? void 0 : _galleryItems_currentSlide.type) === 'video' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
+                                                className: "w-full h-full object-cover",
+                                                controls: true,
+                                                autoPlay: isVideoPlaying,
+                                                muted: true,
+                                                loop: true,
+                                                playsInline: true,
+                                                onPlay: ()=>setIsVideoPlaying(true),
+                                                onPause: ()=>setIsVideoPlaying(false),
+                                                onLoadedData: ()=>{
+                                                    // Auto-play when video loads if it's the current slide
+                                                    const videoElement = document.querySelector('video');
+                                                    if (videoElement && currentSlide === galleryItems.findIndex((item)=>item.type === 'video')) {
+                                                        videoElement.play().catch(console.error);
+                                                    }
+                                                },
+                                                onClick: ()=>{
+                                                    // Enhanced click handler for video
+                                                    const videoElement = document.querySelector('video');
+                                                    if (videoElement) {
+                                                        if (videoElement.paused) {
+                                                            setIsVideoPlaying(true);
+                                                            videoElement.play().catch(console.error);
+                                                        } else {
+                                                            setIsVideoPlaying(false);
+                                                            videoElement.pause();
+                                                        }
+                                                    }
+                                                },
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("source", {
+                                                        src: galleryItems[currentSlide].src,
+                                                        type: "video/mp4"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                        lineNumber: 612,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    "Your browser does not support the video tag."
+                                                ]
+                                            }, currentSlide, true, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 581,
+                                                columnNumber: 15
+                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                src: imageError ? '/products/placeholder.jpg' : ((_galleryItems_currentSlide1 = galleryItems[currentSlide]) === null || _galleryItems_currentSlide1 === void 0 ? void 0 : _galleryItems_currentSlide1.src) || '/products/placeholder.jpg',
+                                                alt: ((_galleryItems_currentSlide2 = galleryItems[currentSlide]) === null || _galleryItems_currentSlide2 === void 0 ? void 0 : _galleryItems_currentSlide2.alt) || (product === null || product === void 0 ? void 0 : product.name) || 'Product Image',
+                                                fill: true,
+                                                className: "object-cover hover:scale-105 transition-transform duration-300",
+                                                sizes: "(max-width: 768px) 100vw, 60vw",
+                                                priority: true,
+                                                onError: ()=>setImageError(true)
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 616,
+                                                columnNumber: 15
+                                            }, this),
+                                            galleryItems.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: prevSlide,
+                                                        className: "absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-3 rounded-full shadow-lg transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:scale-110 touch-manipulation",
+                                                        "aria-label": "Previous image",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                            className: "w-4 h-4 sm:w-6 sm:h-6",
+                                                            fill: "none",
+                                                            stroke: "currentColor",
+                                                            viewBox: "0 0 24 24",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                                strokeLinecap: "round",
+                                                                strokeLinejoin: "round",
+                                                                strokeWidth: 2,
+                                                                d: "M15 19l-7-7 7-7"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                lineNumber: 636,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                            lineNumber: 635,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                        lineNumber: 630,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: nextSlide,
+                                                        className: "absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-3 rounded-full shadow-lg transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:scale-110 touch-manipulation",
+                                                        "aria-label": "Next image",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                            className: "w-4 h-4 sm:w-6 sm:h-6",
+                                                            fill: "none",
+                                                            stroke: "currentColor",
+                                                            viewBox: "0 0 24 24",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                                strokeLinecap: "round",
+                                                                strokeLinejoin: "round",
+                                                                strokeWidth: 2,
+                                                                d: "M9 5l7 7-7 7"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                                lineNumber: 645,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                            lineNumber: 644,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                        lineNumber: 639,
+                                                        columnNumber: 17
+                                                    }, this)
+                                                ]
+                                            }, void 0, true),
+                                            galleryItems.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-1 sm:space-x-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300",
+                                                children: galleryItems.map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>setCurrentSlide(index),
+                                                        className: "w-3 h-3 sm:w-2 sm:h-2 rounded-full transition-all duration-300 touch-manipulation ".concat(currentSlide === index ? 'bg-white scale-125' : 'bg-white/60 hover:bg-white/80')
+                                                    }, index, false, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                        lineNumber: 655,
+                                                        columnNumber: 19
+                                                    }, this))
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 653,
+                                                columnNumber: 15
+                                            }, this),
+                                            ((_galleryItems_currentSlide3 = galleryItems[currentSlide]) === null || _galleryItems_currentSlide3 === void 0 ? void 0 : _galleryItems_currentSlide3.type) === 'video' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "absolute top-2 sm:top-4 left-2 sm:left-4 bg-red-600 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full flex items-center shadow-lg",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "mr-1 sm:mr-2",
+                                                        children: "🔴"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                        lineNumber: 669,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "font-medium text-xs sm:text-sm",
+                                                        children: isVideoPlaying ? 'PLAYING' : 'VIDEO'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                        lineNumber: 670,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-1 sm:ml-2 text-xs opacity-75",
+                                                        children: [
+                                                            Math.floor(currentSlide + 1),
+                                                            "/",
+                                                            galleryItems.length
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                        lineNumber: 671,
+                                                        columnNumber: 17
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 668,
+                                                columnNumber: 15
+                                            }, this),
+                                            ((_galleryItems_currentSlide4 = galleryItems[currentSlide]) === null || _galleryItems_currentSlide4 === void 0 ? void 0 : _galleryItems_currentSlide4.type) === 'image' && galleryItems.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "absolute top-2 sm:top-4 left-2 sm:left-4 bg-black/60 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full flex items-center shadow-lg",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "font-medium text-xs sm:text-sm",
+                                                    children: [
+                                                        currentSlide + 1,
+                                                        " / ",
+                                                        galleryItems.length
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                    lineNumber: 680,
+                                                    columnNumber: 17
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 679,
+                                                columnNumber: 15
+                                            }, this),
+                                            ((_galleryItems_currentSlide5 = galleryItems[currentSlide]) === null || _galleryItems_currentSlide5 === void 0 ? void 0 : _galleryItems_currentSlide5.type) === 'video' && !isVideoPlaying && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-all duration-300",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "bg-white/90 backdrop-blur-sm rounded-full p-4 hover:bg-white transition-all duration-300 cursor-pointer hover:scale-110",
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                        className: "w-12 h-12 text-red-600",
+                                                        fill: "currentColor",
+                                                        viewBox: "0 0 24 24",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                            d: "M8 5v14l11-7z"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                            lineNumber: 691,
+                                                            columnNumber: 21
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                        lineNumber: 690,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                    lineNumber: 689,
+                                                    columnNumber: 17
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 688,
+                                                columnNumber: 15
+                                            }, this),
+                                            ((_galleryItems_currentSlide6 = galleryItems[currentSlide]) === null || _galleryItems_currentSlide6 === void 0 ? void 0 : _galleryItems_currentSlide6.type) === 'image' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "absolute top-4 right-4 bg-black/60 text-white text-xs px-2 py-1 rounded flex items-center opacity-0 group-hover:opacity-100 transition-all duration-300"
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 699,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                        lineNumber: 579,
+                                        columnNumber: 11
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                    lineNumber: 578,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                            lineNumber: 480,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                    lineNumber: 469,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "lg:col-span-5",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "sticky top-8",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "mb-6",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "inline-block px-3 py-1 text-sm bg-orange-100 text-orange-600 rounded-full mb-3",
+                                        children: product.category
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                        lineNumber: 714,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                                        className: "text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight",
+                                        children: product.name
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                        lineNumber: 717,
+                                        columnNumber: 15
+                                    }, this),
+                                    reviewCount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center gap-3 mb-4",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StarRating, {
+                                                rating: averageRating,
+                                                size: "md"
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 724,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-lg font-medium text-gray-700",
+                                                children: averageRating.toFixed(1)
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 725,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-blue-600 hover:text-blue-800 cursor-pointer",
+                                                children: [
+                                                    "(",
+                                                    reviewCount,
+                                                    " ",
+                                                    reviewCount === 1 ? 'review' : 'reviews',
+                                                    ")"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 728,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                        lineNumber: 723,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-lg text-gray-600 leading-relaxed",
+                                        children: product.description
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                        lineNumber: 734,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                lineNumber: 713,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "grid grid-cols-2 gap-4 mb-6",
+                                children: [
+                                    product.shelfLife && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "bg-green-50 p-4 rounded-lg border border-green-200",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                className: "font-semibold text-green-800 mb-1",
+                                                children: "Shelf Life"
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 741,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-sm text-green-700",
+                                                children: product.shelfLife
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 742,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                        lineNumber: 740,
+                                        columnNumber: 17
+                                    }, this),
+                                    product.storageInfo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "bg-blue-50 p-4 rounded-lg border border-blue-200",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                className: "font-semibold text-blue-800 mb-1",
+                                                children: "Storage"
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 747,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-sm text-blue-700",
+                                                children: product.storageInfo
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 748,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                        lineNumber: 746,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                lineNumber: 738,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "space-y-3 mb-8",
+                                children: product.ingredients && product.ingredients.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "bg-white p-6 rounded-lg border border-gray-200 shadow-sm",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            className: "text-xl font-semibold text-gray-800 mb-4 flex items-center",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-blue-600 mr-2",
+                                                    children: "🥄"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                    lineNumber: 758,
+                                                    columnNumber: 19
+                                                }, this),
+                                                "Ingredients"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                            lineNumber: 757,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "grid grid-cols-2 md:grid-cols-3 gap-3",
+                                            children: product.ingredients.map((ingredient, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "px-4 py-2 bg-gray-50 text-gray-700 rounded-lg text-sm border border-gray-200 text-center",
+                                                    children: ingredient
+                                                }, index, false, {
+                                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                    lineNumber: 763,
+                                                    columnNumber: 21
+                                                }, this))
+                                        }, void 0, false, {
+                                            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                            lineNumber: 761,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                    lineNumber: 756,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                lineNumber: 754,
+                                columnNumber: 13
+                            }, this),
+                            product.tags && product.tags.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "mb-6",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "font-semibold text-gray-800 mb-3",
+                                        children: "Tags"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                        lineNumber: 779,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex flex-wrap gap-2",
+                                        children: product.tags.map((tag, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200 transition-colors",
+                                                children: [
+                                                    "#",
+                                                    tag
+                                                ]
+                                            }, index, true, {
+                                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                                lineNumber: 782,
+                                                columnNumber: 21
+                                            }, this))
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                        lineNumber: 780,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                                lineNumber: 778,
+                                columnNumber: 15
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                        lineNumber: 711,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+                    lineNumber: 710,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+            lineNumber: 467,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/Downloads/raagafoods (2)/raagafoods/src/app/products/[id]/ProductDetailClient.tsx",
+        lineNumber: 463,
+        columnNumber: 5
+    }, this);
+}
+_s(ProductDetail, "wlt5nf3Jc3xS+XwySVi9lw1cERo=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$raagafoods__$28$2$292f$raagafoods$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"]
+    ];
+});
+_c2 = ProductDetail;
+var _c, _c1, _c2;
+__turbopack_context__.k.register(_c, "StarRating");
+__turbopack_context__.k.register(_c1, "ShareProduct");
+__turbopack_context__.k.register(_c2, "ProductDetail");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+]);
+
+//# sourceMappingURL=Downloads_raagafoods%20%282%29_raagafoods_src_ef653e18._.js.map
